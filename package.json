@@ -1,0 +1,28 @@
+{
+  "name": "ktouchstats",
+  "version": "0.0.1",
+  "description": "Gather information about KTouch progress for all users of a system.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/limikael/ktouchstats.git"
+  },
+  "bin": {
+    "ktouchstats": "./src/ktouchstats.js"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/limikael/ktouchstats/issues"
+  },
+  "homepage": "https://github.com/limikael/ktouchstats",
+  "devDependencies": {
+    "jasmine-node": "^1.14.5"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine-node --verbose test"
+  },
+  "dependencies": {
+    "csv": "^0.4.0",
+    "minimist": "^1.1.0",
+    "xmldoc": "^0.1.2"
+  }
+}

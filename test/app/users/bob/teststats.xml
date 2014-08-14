@@ -1,0 +1,91 @@
+<KTouchStatisticsData>
+ <KTouchStatistics>
+  <User>Default User</User>
+  <LectureStats>
+   <URL>default</URL>
+   <Title>A default lecture...</Title>
+   <AllLevelStats>
+    <LevelStats Corrects="222" Words="38" Number="0" Chars="225" Time="68.5">
+     <Time>2014-08-13T10:38:15</Time>
+     <CharStats> 84 1 0 104 6 0 105 10 0 115 9 0 97 13 0 109 5 0 108 11 0 100 3 0 101 22 0 102 8 1 117 12 0 116 21 0 120 2 0 46 3 0 73 2 0 121 6 0 111 8 1 119 1 0 110 11 0 114 11 1 112 5 0 99 8 0 103 3 0 44 1 0 47 1 0 69 1 0 118 1 0 72 1 0 33 3 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="222" Words="38" Number="0" Chars="230" Time="58.5">
+     <Time>2014-08-13T10:40:22</Time>
+     <CharStats> 84 1 0 104 6 0 105 10 1 115 9 0 97 13 0 109 5 0 108 11 0 100 3 0 101 22 0 102 8 0 117 12 1 116 21 0 120 2 1 46 3 0 73 2 0 121 6 1 111 8 0 119 1 0 110 11 1 114 11 1 112 5 0 99 8 0 103 3 0 44 1 0 47 1 0 69 1 1 118 1 0 72 1 0 33 3 0</CharStats>
+    </LevelStats>
+   </AllLevelStats>
+   <AllSessionStats>
+    <SessionStats Corrects="222" Words="38" Chars="225" Time="68.5">
+     <Time>2014-08-13T10:38:15</Time>
+     <LevelNums> 0</LevelNums>
+     <CharStats> 84 1 0 104 6 0 105 10 0 115 9 0 97 13 0 109 5 0 108 11 0 100 3 0 101 22 0 102 8 1 117 12 0 116 21 0 120 2 0 46 3 0 73 2 0 121 6 0 111 8 1 119 1 0 110 11 0 114 11 1 112 5 0 99 8 0 103 3 0 44 1 0 47 1 0 69 1 0 118 1 0 72 1 0 33 3 0</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="222" Words="38" Chars="230" Time="58.5">
+     <Time>2014-08-13T10:40:22</Time>
+     <LevelNums> 0</LevelNums>
+     <CharStats> 84 1 0 104 6 0 105 10 1 115 9 0 97 13 0 109 5 0 108 11 0 100 3 0 101 22 0 102 8 0 117 12 1 116 21 0 120 2 1 46 3 0 73 2 0 121 6 1 111 8 0 119 1 0 110 11 1 114 11 1 112 5 0 99 8 0 103 3 0 44 1 0 47 1 0 69 1 1 118 1 0 72 1 0 33 3 0</CharStats>
+    </SessionStats>
+   </AllSessionStats>
+  </LectureStats>
+  <LectureStats>
+   <URL>file:///usr/share/kde4/apps/ktouch/Lecture/English/en.ktouch.something.else.xml</URL>
+   <Title>English (auto-generated)</Title>
+   <AllLevelStats>
+    <LevelStats Corrects="253" Words="104" Number="0" Chars="260" Time="80">
+     <Time>2014-08-13T10:46:56</Time>
+     <CharStats> 102 103 3 106 70 3</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="125" Words="46" Number="1" Chars="127" Time="64.5">
+     <Time>2014-08-13T10:48:33</Time>
+     <CharStats> 100 30 1 106 12 0 107 27 1 102 12 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="125" Words="46" Number="1" Chars="126" Time="57">
+     <Time>2014-08-13T10:49:50</Time>
+     <CharStats> 100 30 1 106 12 0 107 27 0 102 12 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="0" Words="0" Number="1" Chars="0" Time="2">
+     <Time>2014-08-13T14:49:36</Time>
+     <CharStats></CharStats>
+    </LevelStats>
+   </AllLevelStats>
+   <AllSessionStats>
+    <SessionStats Corrects="378" Words="150" Chars="387" Time="144.5">
+     <Time>2014-08-13T10:48:33</Time>
+     <LevelNums> 0 1</LevelNums>
+     <CharStats> 102 115 3 106 82 3 100 30 1 107 27 1</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="125" Words="46" Chars="126" Time="57">
+     <Time>2014-08-13T10:49:50</Time>
+     <LevelNums> 1</LevelNums>
+     <CharStats> 100 30 1 106 12 0 107 27 0 102 12 0</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="0" Words="0" Chars="0" Time="2">
+     <Time>2014-08-13T14:49:36</Time>
+     <LevelNums> 1</LevelNums>
+     <CharStats></CharStats>
+    </SessionStats>
+   </AllSessionStats>
+  </LectureStats>
+  <LectureStats>
+   <URL>file:///usr/share/kde4/apps/ktouch/Lecture/Norwegian/no.ktouch.xml</URL>
+   <Title>Norwegian</Title>
+   <AllLevelStats>
+    <LevelStats Corrects="42" Words="34" Number="0" Chars="42" Time="14.5">
+     <Time>2014-08-13T10:41:01</Time>
+     <CharStats> 102 8 0 106 18 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="384" Words="132" Number="1" Chars="402" Time="206">
+     <Time>2014-08-13T10:45:32</Time>
+     <CharStats> 102 71 4 100 79 8 106 23 2 107 88 2</CharStats>
+    </LevelStats>
+   </AllLevelStats>
+   <AllSessionStats>
+    <SessionStats Corrects="426" Words="166" Chars="444" Time="220.5">
+     <Time>2014-08-13T10:45:32</Time>
+     <LevelNums> 0 1</LevelNums>
+     <CharStats> 102 79 4 106 41 2 100 79 8 107 88 2</CharStats>
+    </SessionStats>
+   </AllSessionStats>
+  </LectureStats>
+ </KTouchStatistics>
+</KTouchStatisticsData>

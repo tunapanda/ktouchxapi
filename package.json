@@ -1,6 +1,6 @@
 {
   "name": "ktouchstats",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Gather information about KTouch progress for all users of a system.",
   "repository": {
     "type": "git",

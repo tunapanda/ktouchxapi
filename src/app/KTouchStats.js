@@ -2,8 +2,8 @@ var UserUtil = require("../utils/UserUtil");
 var KTouchStatsFile = require("../ktouchstats/KTouchStatsFile");
 var Thenable = require("../utils/Thenable");
 var FileUtil = require("../utils/FileUtil");
+var CsvHack = require("../utils/CsvHack");
 var fs = require("fs");
-//var csv = require("csv");
 
 /**
  * Gather statistics for KTouch.
@@ -107,22 +107,11 @@ KTouchStats.prototype.run = function() {
 		csvData.push(row);
 	}
 
-	//	csv.stringify(csvData, this.onScvDataStringified.bind(this));
-	fs.writeFileSync(this.csvOutputFileName, csvData.toString());
+	var csvOut=CsvHack.stringify(csvData);
+	fs.writeFileSync(this.csvOutputFileName, csvOut);
 	this.runThenable.notifySuccess();
 
 	return this.runThenable;
-}
-
-/**
- * CSV data has been stringified.
- * @method onScvDataStringified
- * @private
- */
-KTouchStats.prototype.onScvDataStringified = function(error, output) {
-	fs.writeFileSync(this.csvOutputFileName, output);
-
-	this.runThenable.notifySuccess();
 }
 
 module.exports = KTouchStats;

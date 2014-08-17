@@ -64,7 +64,7 @@ KTouchStats.prototype.run = function() {
 		user = allUsers[i];
 		var userStatisticsFileName = this.baseHomeDir + "/" + user + "/" + this.statisticsFileName;
 
-		if (fs.existsSync(userStatisticsFileName)) {
+		if (FileUtil.existsSync(userStatisticsFileName)) {
 			statsByUser[user] = new KTouchStatsFile(userStatisticsFileName);
 		}
 	}
@@ -107,7 +107,7 @@ KTouchStats.prototype.run = function() {
 		csvData.push(row);
 	}
 
-//	csv.stringify(csvData, this.onScvDataStringified.bind(this));
+	//	csv.stringify(csvData, this.onScvDataStringified.bind(this));
 	fs.writeFileSync(this.csvOutputFileName, csvData.toString());
 	this.runThenable.notifySuccess();
 

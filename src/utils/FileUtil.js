@@ -22,4 +22,23 @@ FileUtil.readdirNonDotSync = function(parent) {
 	return nonDotFiles;
 }
 
+/**
+ * existsSync for older versions of node.
+ * @method existsSync
+ * @static
+ */
+FileUtil.existsSync = function(fileName) {
+	try {
+		fs.statSync(fileName);
+	} catch (e) {
+		if (e.code == "ENOENT")
+			return false;
+
+		else
+			throw e;
+	}
+
+	return true;
+}
+
 module.exports = FileUtil;

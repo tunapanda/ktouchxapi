@@ -4,8 +4,8 @@ var fs=require("fs");
 
 describe("KTouchStats", function() {
 	it("can generate a csv file", function(done) {
-		if (fs.existsSync(__dirname+"/out.csv"))
-			fs.unlinkSync(__dirname+"/out.csv");
+		/*if (fs.existsSync(__dirname+"/out.csv"))
+			fs.unlinkSync(__dirname+"/out.csv");*/
 
 		var ktouchstats=new KTouchStats();
 		ktouchstats.setBaseHomeDir(__dirname+"/users");

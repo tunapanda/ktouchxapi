@@ -3,7 +3,7 @@ var KTouchStatsFile = require("../ktouchstats/KTouchStatsFile");
 var Thenable = require("../utils/Thenable");
 var FileUtil = require("../utils/FileUtil");
 var fs = require("fs");
-var csv = require("csv");
+//var csv = require("csv");
 
 /**
  * Gather statistics for KTouch.
@@ -107,7 +107,10 @@ KTouchStats.prototype.run = function() {
 		csvData.push(row);
 	}
 
-	csv.stringify(csvData, this.onScvDataStringified.bind(this));
+//	csv.stringify(csvData, this.onScvDataStringified.bind(this));
+	fs.writeFileSync(this.csvOutputFileName, csvData.toString());
+	this.runThenable.notifySuccess();
+
 	return this.runThenable;
 }
 

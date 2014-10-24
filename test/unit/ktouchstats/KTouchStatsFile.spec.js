@@ -1,4 +1,4 @@
-var KTouchStatsFile = require("../../src/ktouchstats/KTouchStatsFile");
+var KTouchStatsFile = require("../../../src/ktouchstats/KTouchStatsFile");
 
 describe("KTouchStatsFile", function() {
 	it("can load a file", function() {

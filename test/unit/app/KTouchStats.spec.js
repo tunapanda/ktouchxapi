@@ -1,6 +1,6 @@
-var KTouchStats = require("../../src/app/KTouchStats");
-var UserUtil = require("../../src/utils/UserUtil");
-var FileUtil = require("../../src/utils/FileUtil");
+var KTouchStats = require("../../../src/app/KTouchStats");
+var UserUtil = require("../../../src/utils/UserUtil");
+var FileUtil = require("../../../src/utils/FileUtil");
 var fs = require("fs");
 
 describe("KTouchStats", function() {

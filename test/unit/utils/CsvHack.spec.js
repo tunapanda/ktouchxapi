@@ -1,4 +1,4 @@
-var CsvHack = require("../../src/utils/CsvHack");
+var CsvHack = require("../../../src/utils/CsvHack");
 
 describe("CsvHack", function() {
 	it("can check if a field needs escaping", function() {

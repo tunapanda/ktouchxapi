@@ -18,7 +18,7 @@
     "jasmine-node": "^1.14.5"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jasmine-node --verbose test"
+    "test": "./node_modules/.bin/jasmine-node --verbose test/unit"
   },
   "dependencies": {
     "minimist": "~1.1.0",

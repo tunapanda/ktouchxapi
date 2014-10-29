@@ -1,11 +1,29 @@
 var xmldoc = require("xmldoc");
 
+var KTouchLevelStats=require("./KTouchLevelStats");
+
 /**
  * Parse a LectureStats node in a KTouch statistics.xml file.
  * @class KTouchStatsFile
  */
 function KTouchStatsLecture(node) {
 	this.node = node;
+	this.levelStats = [];
+
+	var allLevelStats = this.node.childNamed("AllLevelStats").childrenNamed("LevelStats");
+
+	for (i = 0; i < allLevelStats.length; i++) {
+		var levelStatistic = new KTouchLevelStats(this, allLevelStats[i]);
+		this.levelStats.push(levelStatistic);
+	}
+}
+
+/**
+ * Get statistics for all levels.
+ * @method getLevelStats
+ */
+KTouchStatsLecture.prototype.getLevelStats=function() {
+	return this.levelStats;
 }
 
 /**

@@ -2,13 +2,13 @@ var KTouchStatsFile = require("../../../src/ktouchstats/KTouchStatsFile");
 
 describe("KTouchStatsFile", function() {
 	it("can load a file", function() {
-		var stats = new KTouchStatsFile(__dirname + "/statistics.xml");
+		var stats = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
 
 		expect(stats.getUser()).toBe("Default User");
 	});
 
 	it("can get urls of lectures", function() {
-		var stats = new KTouchStatsFile(__dirname + "/statistics.xml");
+		var stats = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
 		var urls = stats.getLectureUrls();
 
 		var expectedUrls = [
@@ -21,7 +21,7 @@ describe("KTouchStatsFile", function() {
 	});
 
 	it("can check max level started", function() {
-		var stats = new KTouchStatsFile(__dirname + "/statistics.xml");
+		var stats = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
 		var urls = stats.getLectureUrls();
 
 		var lecture;
@@ -34,5 +34,17 @@ describe("KTouchStatsFile", function() {
 
 		lecture = stats.getLectureByUrl(urls[2]);
 		expect(lecture.getMaxLevelStarted()).toBe(1);
+	});
+
+	it("can get stats for all atempts", function() {
+		var stats = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
+		var urls = stats.getLectureUrls();
+		var lecture;
+
+		lecture = stats.getLectureByUrl(urls[0]);
+		expect(lecture.getLevelStats().length).toBe(2);
+
+		expect(lecture.getLevelStats()[0].getDurationTime()).toEqual(68.5);
+		expect(lecture.getLevelStats()[1].getDurationTime()).toEqual(58.5);
 	});
 });

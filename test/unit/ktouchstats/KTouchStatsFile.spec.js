@@ -47,4 +47,12 @@ describe("KTouchStatsFile", function() {
 		expect(lecture.getLevelStats()[0].getDurationTime()).toEqual(68.5);
 		expect(lecture.getLevelStats()[1].getDurationTime()).toEqual(58.5);
 	});
+
+	it("can get stats for all levels", function() {
+		var stats = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
+
+		var levelStats=stats.getLevelStats();
+
+		expect(levelStats.length).toBe(8);
+	});
 });

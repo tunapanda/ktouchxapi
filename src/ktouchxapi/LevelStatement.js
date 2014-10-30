@@ -26,7 +26,7 @@ LevelStatement.prototype.getXApiStatement = function() {
 	if (!this.actorEmail)
 		throw new Error("Actor email is not set");
 
-	console.log(this.levelStats.getTimestamp());
+	//console.log(this.levelStats.getTimestamp());
 
 	return {
 		timestamp: this.levelStats.getTimestamp(),
@@ -37,9 +37,17 @@ LevelStatement.prototype.getXApiStatement = function() {
 			id: "http://adlnet.gov/expapi/verbs/experienced"
 		},
 		target: {
-			id: this.levelStats.getLecture().getUrl() + "#" + this.levelStats.getNumber()
+			id: this.getTargetUrl()
 		}
 	};
+}
+
+/**
+ * Get target url.
+ * @method getTargetUrl
+ */
+LevelStatement.prototype.getTargetUrl=function() {
+	return this.levelStats.getLecture().getUrl() + "#" + this.levelStats.getNumber();
 }
 
 /**

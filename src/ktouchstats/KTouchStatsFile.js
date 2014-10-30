@@ -13,6 +13,7 @@ function KTouchStatsFile(url) {
 	this.doc = new xmldoc.XmlDocument(contents);
 	this.lectureUrls = [];
 	this.lectureByUrl = {};
+	this.lectures = [];
 
 	var lectureNodes = this.doc.childNamed("KTouchStatistics").childrenNamed("LectureStats");
 
@@ -21,6 +22,7 @@ function KTouchStatsFile(url) {
 
 		this.lectureUrls.push(lecture.getUrl());
 		this.lectureByUrl[lecture.getUrl()] = lecture;
+		this.lectures.push(lecture);
 	}
 }
 
@@ -46,6 +48,34 @@ KTouchStatsFile.prototype.getLectureUrls = function() {
  */
 KTouchStatsFile.prototype.getLectureByUrl = function(url) {
 	return this.lectureByUrl[url];
+}
+
+/**
+ * Get lectures.
+ * @method getLecures
+ */
+KTouchStatsFile.prototype.getLectures = function() {
+	return this.lectures;
+}
+
+/**
+ * Get all level stats.
+ * @method getLevelStats
+ */
+KTouchStatsFile.prototype.getLevelStats = function() {
+	var levelStats = [];
+	var i, j;
+
+	for (i = 0; i < this.lectures.length; i++) {
+		var lecture = this.lectures[i];
+
+		//console.log("proc lect...");
+
+		for (j = 0; j < lecture.getLevelStats().length; j++)
+			levelStats.push(lecture.getLevelStats()[j]);
+	}
+
+	return levelStats;
 }
 
 module.exports = KTouchStatsFile;

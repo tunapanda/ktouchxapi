@@ -13,6 +13,6 @@ describe("LevelStatement", function() {
 
 		var levelStatement=new LevelStatement(levelStats);
 		levelStatement.setActorEmail("hello@world.com");
-		console.log(levelStatement.getXApiStatement());
+		//console.log(levelStatement.getXApiStatement());
 	});
 });

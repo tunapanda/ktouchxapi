@@ -7,6 +7,15 @@ var Thenable = require("../utils/Thenable");
 function LevelStatement(levelStats) {
 	this.levelStats = levelStats;
 	this.thenable = null;
+	this.actorEmail = null;
+}
+
+/**
+ * Set actor email.
+ * @method setActorEmail
+ */
+LevelStatement.prototype.setActorEmail = function(actorEmail) {
+	this.actorEmail = actorEmail;
 }
 
 /**
@@ -14,15 +23,21 @@ function LevelStatement(levelStats) {
  * @method getXApiStatement
  */
 LevelStatement.prototype.getXApiStatement = function() {
+	if (!this.actorEmail)
+		throw new Error("Actor email is not set");
+
 	console.log(this.levelStats.getTimestamp());
 
 	return {
 		timestamp: this.levelStats.getTimestamp(),
+		actor: {
+			mbox: this.actorEmail
+		},
 		verb: {
-			id: "http://adlnet.gov/expapi/verbs/attempted"
+			id: "http://adlnet.gov/expapi/verbs/experienced"
 		},
 		target: {
-			id: this.levelStats.getLecture().getUrl()+"#"+this.levelStats.getNumber()
+			id: this.levelStats.getLecture().getUrl() + "#" + this.levelStats.getNumber()
 		}
 	};
 }

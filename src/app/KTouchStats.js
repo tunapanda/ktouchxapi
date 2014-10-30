@@ -3,6 +3,7 @@ var KTouchStatsFile = require("../ktouchstats/KTouchStatsFile");
 var Thenable = require("../utils/Thenable");
 var FileUtil = require("../utils/FileUtil");
 var CsvHack = require("../utils/CsvHack");
+var KTouchUser = require("./KTouchUser");
 var fs = require("fs");
 
 /**
@@ -13,6 +14,7 @@ function KTouchStats() {
 	this.statisticsFileName = ".kde/share/apps/ktouch/statistics.xml";
 	this.csvOutputFileName = null;
 	this.runThenable = null;
+	this.kTouchUsers = [];
 }
 
 /**
@@ -55,9 +57,9 @@ KTouchStats.prototype.run = function() {
 	}
 
 	var allUsers = FileUtil.readdirNonDotSync(this.baseHomeDir);
-	var statsByUser = {};
-	var i;
+	var i, u;
 	var user;
+	var kTouchUser;
 
 	// Find all users that have a KTouch statistics file.
 	for (i = 0; i < allUsers.length; i++) {
@@ -65,37 +67,27 @@ KTouchStats.prototype.run = function() {
 		var userStatisticsFileName = this.baseHomeDir + "/" + user + "/" + this.statisticsFileName;
 
 		if (FileUtil.existsSync(userStatisticsFileName)) {
-			statsByUser[user] = new KTouchStatsFile(userStatisticsFileName);
+			kTouchUser = new KTouchUser(user, new KTouchStatsFile(userStatisticsFileName));
+			this.kTouchUsers.push(kTouchUser);
 		}
 	}
 
 	// Find out all urls.
-	var allUrls = [];
-
-	for (user in statsByUser) {
-		var stats = statsByUser[user];
-		for (i = 0; i < stats.getLectureUrls().length; i++) {
-			var url = stats.getLectureUrls()[i];
-
-			if (allUrls.indexOf(url) < 0)
-				allUrls.push(url);
-		}
-	}
+	var allUrls = KTouchUser.getAllLectureUrlsForUsers(this.kTouchUsers);
 
 	// Generate csv data and save.
 	var csvData = [];
-
 	csvData.push(["User"].concat(allUrls));
 
-	for (user in statsByUser) {
+	for (u = 0; u < this.kTouchUsers.length; u++) {
+		var kTouchUser = this.kTouchUsers[u];
 		var row = [];
-		var stats = statsByUser[user];
 
-		row.push(user);
+		row.push(kTouchUser.getUserName());
 
 		for (i = 0; i < allUrls.length; i++) {
 			var url = allUrls[i];
-			var lectureStats = stats.getLectureByUrl(url)
+			var lectureStats = kTouchUser.getKTouchStats().getLectureByUrl(url)
 
 			if (lectureStats)
 				row.push(lectureStats.getMaxLevelStarted());
@@ -107,7 +99,7 @@ KTouchStats.prototype.run = function() {
 		csvData.push(row);
 	}
 
-	var csvOut=CsvHack.stringify(csvData);
+	var csvOut = CsvHack.stringify(csvData);
 	fs.writeFileSync(this.csvOutputFileName, csvOut);
 	this.runThenable.notifySuccess();
 

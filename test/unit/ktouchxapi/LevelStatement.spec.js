@@ -12,6 +12,7 @@ describe("LevelStatement", function() {
 		var levelStats = lecture.getLevelStats()[0];
 
 		var levelStatement=new LevelStatement(levelStats);
+		levelStatement.setActorEmail("hello@world.com");
 		console.log(levelStatement.getXApiStatement());
 	});
 });

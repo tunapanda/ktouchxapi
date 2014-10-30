@@ -56,27 +56,18 @@ KTouchStats.prototype.run = function() {
 		return this.runThenable;
 	}
 
-	var allUsers = FileUtil.readdirNonDotSync(this.baseHomeDir);
-	var i, u;
-	var user;
-	var kTouchUser;
-
 	// Find all users that have a KTouch statistics file.
-	for (i = 0; i < allUsers.length; i++) {
-		user = allUsers[i];
-		var userStatisticsFileName = this.baseHomeDir + "/" + user + "/" + this.statisticsFileName;
-
-		if (FileUtil.existsSync(userStatisticsFileName)) {
-			kTouchUser = new KTouchUser(user, new KTouchStatsFile(userStatisticsFileName));
-			this.kTouchUsers.push(kTouchUser);
-		}
-	}
+	this.kTouchUsers = KTouchUser.findKTouchUsers(this.baseHomeDir, this.statisticsFileName);
 
 	// Find out all urls.
 	var allUrls = KTouchUser.getAllLectureUrlsForUsers(this.kTouchUsers);
 
 	// Generate csv data and save.
+	var i, u;
+	var user;
+	var kTouchUser;
 	var csvData = [];
+
 	csvData.push(["User"].concat(allUrls));
 
 	for (u = 0; u < this.kTouchUsers.length; u++) {

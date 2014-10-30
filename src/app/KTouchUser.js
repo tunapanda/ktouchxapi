@@ -1,3 +1,6 @@
+var FileUtil = require("../utils/FileUtil");
+var KTouchStatsFile = require("../ktouchstats/KTouchStatsFile");
+
 /**
  * Process information for one ktouch user.
  * @class KTouchUser
@@ -42,6 +45,29 @@ KTouchUser.getAllLectureUrlsForUsers = function(users) {
 	}
 
 	return allUrls;
+}
+
+/**
+ * Scan a home dir and find all ktouch users.
+ * @method findKTouchUsers
+ * @static
+ */
+KTouchUser.findKTouchUsers = function(baseHomeDir, statisticsFileName) {
+	var allUsers = FileUtil.readdirNonDotSync(baseHomeDir);
+	var kTouchUsers = [];
+	var i;
+
+	for (i = 0; i < allUsers.length; i++) {
+		user = allUsers[i];
+		var userStatisticsFileName = baseHomeDir + "/" + user + "/" + statisticsFileName;
+
+		if (FileUtil.existsSync(userStatisticsFileName)) {
+			kTouchUser = new KTouchUser(user, new KTouchStatsFile(userStatisticsFileName));
+			kTouchUsers.push(kTouchUser);
+		}
+	}
+
+	return kTouchUsers;
 }
 
 module.exports = KTouchUser;

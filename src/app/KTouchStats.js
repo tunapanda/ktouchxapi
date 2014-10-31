@@ -4,6 +4,7 @@ var Thenable = require("../utils/Thenable");
 var FileUtil = require("../utils/FileUtil");
 var CsvHack = require("../utils/CsvHack");
 var KTouchUser = require("./KTouchUser");
+var TinCan = require("tincanjs");
 var fs = require("fs");
 
 /**
@@ -15,6 +16,12 @@ function KTouchStats() {
 	this.csvOutputFileName = null;
 	this.runThenable = null;
 	this.kTouchUsers = [];
+	this.tinCan = null;
+	this.xApiEndpoint = null;
+	this.xApiUser = null;
+	this.xApiPassword = null;
+	this.tinCan = null;
+	this.userSyncIndex = 0;
 }
 
 /**
@@ -59,6 +66,34 @@ KTouchStats.prototype.run = function() {
 	// Find all users that have a KTouch statistics file.
 	this.kTouchUsers = KTouchUser.findKTouchUsers(this.baseHomeDir, this.statisticsFileName);
 
+	if (this.csvOutputFileName)
+		this.generateCsv();
+
+	if (this.xApiEndpoint) {
+		this.tinCan = new TinCan({
+			recordStores: [{
+				endpoint: this.xApiEndpoint,
+				username: this.xApiUser,
+				password: this.xApiPassword,
+				allowFail: false
+			}]
+		});
+	}
+
+	if (this.tinCan)
+		this.syncNextUser();
+
+	else
+		this.runThenable.notifySuccess();
+
+	return this.runThenable;
+}
+
+/**
+ * Generate csv file.
+ * @method generateCsv
+ */
+KTouchStats.prototype.generateCsv = function() {
 	// Find out all urls.
 	var allUrls = KTouchUser.getAllLectureUrlsForUsers(this.kTouchUsers);
 
@@ -92,9 +127,42 @@ KTouchStats.prototype.run = function() {
 
 	var csvOut = CsvHack.stringify(csvData);
 	fs.writeFileSync(this.csvOutputFileName, csvOut);
-	this.runThenable.notifySuccess();
+}
 
-	return this.runThenable;
+/**
+ * Sync next user in sequence.
+ * @method syncNextUser
+ * @private
+ */
+KTouchStats.prototype.syncNextUser = function() {
+	if (this.userSyncIndex >= this.kTouchUsers.length) {
+		this.runThenable.notifySuccess();
+		return;
+	}
+
+	this.kTouchUsers[this.userSyncIndex].syncToXApi(this.tinCan).then(
+		this.onUserSyncComplete.bind(this),
+		this.onUserSyncError.bind(this)
+	);
+}
+
+/**
+ * User sync complete.
+ * @method onUserSyncComplete
+ * @private
+ */
+KTouchStats.prototype.onUserSyncComplete = function() {
+	this.userSyncIndex++;
+	this.syncNextUser();
+}
+
+/**
+ * User sync error.
+ * @method onUserSyncError
+ * @private
+ */
+KTouchStats.prototype.onUserSyncError = function(res) {
+	this.runThenable.notifyError(res);
 }
 
 module.exports = KTouchStats;

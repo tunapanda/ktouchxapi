@@ -23,4 +23,5 @@ tincan.sendStatement({
 	}
 }, function(a, b) {
 	console.log("here, a="+a+", b="+b);
+	console.log(a);
 });

@@ -1,5 +1,5 @@
-var EventDispatcher=require("./EventDispatcher");
-var FunctionUtil=require("./FunctionUtil");
+var EventDispatcher = require("./EventDispatcher");
+var FunctionUtil = require("./FunctionUtil");
 
 /**
  * An implementation of promises as defined here:
@@ -10,14 +10,14 @@ var FunctionUtil=require("./FunctionUtil");
 function Thenable() {
 	EventDispatcher.call(this)
 
-	this.successHandlers=[];
-	this.errorHandlers=[];
-	this.notified=false;
-	this.handlersCalled=false;
-	this.notifyParam=null;
+	this.successHandlers = [];
+	this.errorHandlers = [];
+	this.notified = false;
+	this.handlersCalled = false;
+	this.notifyParam = null;
 }
 
-FunctionUtil.extend(Thenable,EventDispatcher);
+FunctionUtil.extend(Thenable, EventDispatcher);
 
 /**
  * Set resolution handlers.
@@ -26,7 +26,7 @@ FunctionUtil.extend(Thenable,EventDispatcher);
  * @param error The function called to handle error.
  * @return This Thenable for chaining.
  */
-Thenable.prototype.then=function(success, error) {
+Thenable.prototype.then = function(success, error) {
 	if (this.handlersCalled)
 		throw new Error("This thenable is already used.");
 
@@ -40,24 +40,24 @@ Thenable.prototype.then=function(success, error) {
  * Notify success of the operation.
  * @method notifySuccess
  */
-Thenable.prototype.notifySuccess=function(param) {
+Thenable.prototype.notifySuccess = function(param) {
 	if (this.handlersCalled)
 		throw new Error("This thenable is already notified.");
 
-	this.notifyParam=param;
-	setTimeout(this.doNotifySuccess.bind(this),0);
+	this.notifyParam = param;
+	setTimeout(this.doNotifySuccess.bind(this), 0);
 }
 
 /**
  * Notify failure of the operation.
  * @method notifyError
  */
-Thenable.prototype.notifyError=function(param) {
+Thenable.prototype.notifyError = function(param) {
 	if (this.handlersCalled)
 		throw new Error("This thenable is already notified.");
 
-	this.notifyParam=param;
-	setTimeout(this.doNotifyError.bind(this),0);
+	this.notifyParam = param;
+	setTimeout(this.doNotifyError.bind(this), 0);
 }
 
 /**
@@ -65,7 +65,7 @@ Thenable.prototype.notifyError=function(param) {
  * @method doNotifySuccess
  * @private
  */
-Thenable.prototype.doNotifySuccess=function() {
+Thenable.prototype.doNotifySuccess = function() {
 	this.callHandlers(this.successHandlers);
 }
 
@@ -74,7 +74,7 @@ Thenable.prototype.doNotifySuccess=function() {
  * @method doNotifyError
  * @private
  */
-Thenable.prototype.doNotifyError=function() {
+Thenable.prototype.doNotifyError = function() {
 	this.callHandlers(this.errorHandlers);
 }
 
@@ -83,20 +83,18 @@ Thenable.prototype.doNotifyError=function() {
  * @method callHandlers
  * @private
  */
-Thenable.prototype.callHandlers=function(handlers) {
+Thenable.prototype.callHandlers = function(handlers) {
 	if (this.handlersCalled)
 		throw new Error("Should never happen.");
 
-	this.handlersCalled=true;
+	this.handlersCalled = true;
 
 	for (var i in handlers) {
 		if (handlers[i]) {
 			try {
-				handlers[i].call(null,this.notifyParam);
-			}
-
-			catch (e) {
-				console.error("Exception in Thenable handler: "+e);
+				handlers[i].call(null, this.notifyParam);
+			} catch (e) {
+				console.error("Exception in Thenable handler: " + e);
 				console.log(e.stack);
 				throw e;
 			}
@@ -104,4 +102,12 @@ Thenable.prototype.callHandlers=function(handlers) {
 	}
 }
 
-module.exports=Thenable;
+Thenable.prototype.reject = function(res) {
+	this.notifyError(res);
+}
+
+Thenable.prototype.resolve = function(res) {
+	this.notifySuccess(res);
+}
+
+module.exports = Thenable;

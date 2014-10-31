@@ -1,6 +1,7 @@
 var FileUtil = require("../utils/FileUtil");
 var KTouchStatsFile = require("../ktouchstats/KTouchStatsFile");
 var LevelStatement = require("../ktouchxapi/LevelStatement");
+var KTouchUserXApiSync = require("./KTouchUserXApiSync");
 
 /**
  * Process information for one ktouch user.
@@ -37,29 +38,23 @@ KTouchUser.prototype.setActorDomain = function(actorDomain) {
 }
 
 /**
+ * Get actor email.
+ * @method getActorEmail
+ */
+KTouchUser.prototype.getActorEmail = function() {
+	if (!this.actorDomain)
+		throw new Error("actor domain not set");
+
+	return this.userName + "@" + this.actorDomain;
+}
+
+/**
  * Sync up information to xapi repo for this user.
  * @method syncToXApi
  */
 KTouchUser.prototype.syncToXApi = function(tinCan) {
-	var statements = [];
-	var i;
-
-	var levelStats = this.kTouchStats.getLevelStats();
-
-	for (i = 0; i < levelStats.length; i++) {
-		var statement = new LevelStatement(levelStats[i])
-		statement.setActorEmail(this.userName + "@" + this.actorDomain);
-		statements.push(statement);
-	}
-
-	var uniqueTargets = [];
-	for (i = 0; i < statements.length; i++)
-		if (uniqueTargets.indexOf(statements[i].getTargetUrl()) < 0)
-			uniqueTargets.push(statements[i].getTargetUrl());
-
-	console.log(uniqueTargets);
-
-	var existingStatementsByTarget = [];
+	var xApiSync = new KTouchUserXApiSync(this);
+	return xApiSync.sync(tinCan);
 }
 
 /**

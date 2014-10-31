@@ -54,7 +54,11 @@ KTouchUser.prototype.getActorEmail = function() {
  */
 KTouchUser.prototype.syncToXApi = function(tinCan) {
 	var xApiSync = new KTouchUserXApiSync(this);
-	return xApiSync.sync(tinCan);
+	var thenable = xApiSync.sync(tinCan);
+
+	//console.log("thenable: " + thenable);
+
+	return thenable;
 }
 
 /**

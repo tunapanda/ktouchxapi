@@ -33,6 +33,8 @@ KTouchUserXApiSync.prototype.sync = function(tinCan) {
 	this.thenable = new Thenable();
 	this.statementIndex = 0;
 	this.syncNext();
+
+	return this.thenable;
 }
 
 /**
@@ -41,10 +43,12 @@ KTouchUserXApiSync.prototype.sync = function(tinCan) {
  * @private
  */
 KTouchUserXApiSync.prototype.syncNext = function() {
-	if (this.statementIndex > this.statements.length) {
+	if (this.statementIndex >= this.statements.length) {
 		this.thenable.resolve();
 		return;
 	}
+
+	//console.log("doing: "+this.statementIndex);
 
 	this.statements[this.statementIndex].sync(this.tinCan).then(
 		this.onSyncSuccess.bind(this),

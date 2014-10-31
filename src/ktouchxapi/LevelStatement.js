@@ -76,12 +76,14 @@ LevelStatement.prototype.sync = function(tinCan) {
 		})
 	};
 
+	var thenable = this.thenable;
+
 	this.tinCan.getStatements({
 		params: params,
 		callback: this.onGetStatementsDone.bind(this)
 	});
 
-	return this.thenable;
+	return thenable;
 }
 
 /**

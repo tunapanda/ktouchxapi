@@ -88,7 +88,7 @@ KTouchUser.getAllLectureUrlsForUsers = function(users) {
  * @method findKTouchUsers
  * @static
  */
-KTouchUser.findKTouchUsers = function(baseHomeDir, statisticsFileName) {
+KTouchUser.findKTouchUsers = function(baseHomeDir, statisticsFileName, actorDomain) {
 	var allUsers = FileUtil.readdirNonDotSync(baseHomeDir);
 	var kTouchUsers = [];
 	var i;
@@ -99,6 +99,7 @@ KTouchUser.findKTouchUsers = function(baseHomeDir, statisticsFileName) {
 
 		if (FileUtil.existsSync(userStatisticsFileName)) {
 			kTouchUser = new KTouchUser(user, new KTouchStatsFile(userStatisticsFileName));
+			kTouchUser.setActorDomain(actorDomain);
 			kTouchUsers.push(kTouchUser);
 		}
 	}

@@ -21,6 +21,7 @@ function KTouchStats() {
 	this.xApiUser = null;
 	this.xApiPassword = null;
 	this.tinCan = null;
+	this.actorDomain = null;
 	this.userSyncIndex = 0;
 }
 
@@ -30,6 +31,14 @@ function KTouchStats() {
  */
 KTouchStats.prototype.setStatisticsFileName = function(value) {
 	this.statisticsFileName = value;
+}
+
+/**
+ * Set actor domain.
+ * @method setActorDomain
+ */
+KTouchStats.prototype.setActorDomain = function(actorDomain) {
+	this.actorDomain = actorDomain;
 }
 
 /**
@@ -57,14 +66,17 @@ KTouchStats.prototype.run = function() {
 	if (!this.baseHomeDir)
 		this.baseHomeDir = UserUtil.getBaseHomeDir();
 
-	if (!this.csvOutputFileName) {
-		this.runThenable.notifyError("Output file not specified");
+	if (!this.csvOutputFileName && !this.tinCan && !this.xApiEndpoint) {
+		this.runThenable.notifyError("No output or xapi endpoint.");
 
 		return this.runThenable;
 	}
 
 	// Find all users that have a KTouch statistics file.
-	this.kTouchUsers = KTouchUser.findKTouchUsers(this.baseHomeDir, this.statisticsFileName);
+	this.kTouchUsers = KTouchUser.findKTouchUsers(
+		this.baseHomeDir,
+		this.statisticsFileName,
+		this.actorDomain);
 
 	if (this.csvOutputFileName)
 		this.generateCsv();
@@ -80,13 +92,27 @@ KTouchStats.prototype.run = function() {
 		});
 	}
 
+	console.log("will calll sync, tincan=" + this.tinCan);
+
 	if (this.tinCan)
 		this.syncNextUser();
 
 	else
 		this.runThenable.notifySuccess();
 
+	console.log("returning");
+
 	return this.runThenable;
+}
+
+/**
+ * Set TinCanJS instance responsible for the xapi sync.
+ * Mainly for debugging.
+ * @method setTinCan
+ */
+KTouchStats.prototype.setTinCan = function(tinCan) {
+	console.log("setting tin can");
+	this.tinCan = tinCan;
 }
 
 /**
@@ -135,6 +161,7 @@ KTouchStats.prototype.generateCsv = function() {
  * @private
  */
 KTouchStats.prototype.syncNextUser = function() {
+	console.log("syncing, user index=" + this.userSyncIndex);
 	if (this.userSyncIndex >= this.kTouchUsers.length) {
 		this.runThenable.notifySuccess();
 		return;

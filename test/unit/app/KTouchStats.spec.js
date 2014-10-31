@@ -34,4 +34,40 @@ describe("KTouchStats", function() {
 				done();
 			});
 	});
+
+	it("can sync to xapi", function(done) {
+		var mockTinCan = {};
+		mockTinCan.getStatements = function(p) {
+			p.callback(null, {
+				statements: []
+			});
+		};
+
+		mockTinCan.sendStatement = function(statement, cb) {
+			cb([{
+				err: null
+			}]);
+		};
+
+		spyOn(mockTinCan, "getStatements").and.callThrough();
+		spyOn(mockTinCan, "sendStatement").and.callThrough();
+
+		var ktouchstats = new KTouchStats();
+		ktouchstats.setBaseHomeDir(__dirname + "/users");
+		ktouchstats.setStatisticsFileName("teststats.xml");
+		ktouchstats.setTinCan(mockTinCan);
+		ktouchstats.setActorDomain("example.com");
+
+		console.log("running...");
+		ktouchstats.run().then(
+			function() {
+				expect(mockTinCan.getStatements.calls.count()).toBe(16);
+				expect(mockTinCan.sendStatement.calls.count()).toBe(16);
+				done();
+			},
+			function(e) {
+				console.log("failed: " + e);
+			}
+		);
+	});
 });

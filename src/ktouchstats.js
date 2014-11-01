@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+
 function usage() {
 	console.log("ktouchstats - Gather information about KTouch progress for all users of a system.");
 	console.log();
@@ -27,7 +28,7 @@ var minimist = require('minimist');
 var kTouchStats = new KTouchStats();
 var argv = minimist(process.argv.slice(2));
 
-if (!argv["csv"])
+if (!argv["csv"] && !argv["xapiEndpoint"])
 	usage();
 
 if (argv["csv"])
@@ -38,6 +39,18 @@ if (argv["home"])
 
 if (argv["stats"])
 	kTouchStats.setStatisticsFileName(argv["stats"]);
+
+if (argv["xapiEndpoint"])
+	kTouchStats.setXApiEndpoint(argv["xapiEndpoint"]);
+
+if (argv["xapiUser"])
+	kTouchStats.setXApiUser(argv["xapiUser"]);
+
+if (argv["xapiPassword"])
+	kTouchStats.setXApiPassword(argv["xapiPassword"]);
+
+if (argv["actorDomain"])
+	kTouchStats.setActorDomain(argv["actorDomain"]);
 
 kTouchStats.run().then(
 	function() {},

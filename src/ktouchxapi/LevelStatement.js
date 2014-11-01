@@ -52,7 +52,12 @@ LevelStatement.prototype.getXApiStatement = function() {
  * @method getTargetUrl
  */
 LevelStatement.prototype.getTargetUrl = function() {
-	return this.levelStats.getLecture().getUrl() + "#" + this.levelStats.getNumber();
+	var url = this.levelStats.getLecture().getUrl();
+
+	if (url == "default")
+		url = "http://example.com/default";
+
+	return url + "#" + this.levelStats.getNumber();
 }
 
 /**
@@ -65,6 +70,8 @@ LevelStatement.prototype.sync = function(tinCan) {
 
 	if (!this.thenable)
 		this.thenable = new Thenable();
+
+	console.log("syncing target: " + this.getTargetUrl());
 
 	var params = {
 		"agent": new TinCan.Agent({

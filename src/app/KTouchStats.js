@@ -21,7 +21,7 @@ function KTouchStats() {
 	this.xApiUser = null;
 	this.xApiPassword = null;
 	this.tinCan = null;
-	this.actorDomain = null;
+	this.actorDomain = "example.com";
 	this.userSyncIndex = 0;
 }
 
@@ -58,6 +58,30 @@ KTouchStats.prototype.setBaseHomeDir = function(value) {
 }
 
 /**
+ * Set xapi endpoint.
+ * @method setXApiEndpoint
+ */
+KTouchStats.prototype.setXApiEndpoint = function(value) {
+	this.xApiEndpoint = value;
+}
+
+/**
+ * Set xapi user.
+ * @method setXApiUser
+ */
+KTouchStats.prototype.setXApiUser = function(value) {
+	this.xApiUser = value;
+}
+
+/**
+ * Set xapi password.
+ * @method setXApiPassword
+ */
+KTouchStats.prototype.setXApiPassword = function(value) {
+	this.xApiPassword = value;
+}
+
+/**
  * Run.
  */
 KTouchStats.prototype.run = function() {
@@ -82,6 +106,8 @@ KTouchStats.prototype.run = function() {
 		this.generateCsv();
 
 	if (this.xApiEndpoint) {
+		console.log("using endpoint: " + this.xApiEndpoint);
+
 		this.tinCan = new TinCan({
 			recordStores: [{
 				endpoint: this.xApiEndpoint,

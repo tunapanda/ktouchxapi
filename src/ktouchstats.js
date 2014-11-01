@@ -7,6 +7,7 @@ function usage() {
 	console.log("At least one of the options --csv or --xapiEndpoint needs to specified.");
 	console.log();
 	console.log("Options:");
+	console.log("    --config <filename.yml>   - Read config options from file in yml format.")
 	console.log("    --csv <filename>          - Filename to write output csv to.");
 	console.log("    --home <directory>        - Directory to scan for users.");
 	console.log("                                Default is system dependent.");
@@ -26,36 +27,44 @@ function usage() {
 
 var KTouchStats = require("./app/KTouchStats");
 var minimist = require('minimist');
+var yaml = require('js-yaml');
+var fs = require("fs");
 
 var kTouchStats = new KTouchStats();
-var argv = minimist(process.argv.slice(2));
+var config = minimist(process.argv.slice(2));
 
-if (!argv["csv"] && !argv["xapiEndpoint"])
+if (config["config"]) {
+	var ymlConfig = yaml.safeLoad(fs.readFileSync(config["config"]));
+	for (var o in ymlConfig)
+		config[o] = ymlConfig[o];
+}
+
+if (!config["csv"] && !config["xapiEndpoint"])
 	usage();
 
-if (argv["csv"])
-	kTouchStats.setCsvOutputFileName(argv["csv"]);
+if (config["csv"])
+	kTouchStats.setCsvOutputFileName(config["csv"]);
 
-if (argv["home"])
-	kTouchStats.setBaseHomeDir(argv["home"]);
+if (config["home"])
+	kTouchStats.setBaseHomeDir(config["home"]);
 
-if (argv["stats"])
-	kTouchStats.setStatisticsFileName(argv["stats"]);
+if (config["stats"])
+	kTouchStats.setStatisticsFileName(config["stats"]);
 
-if (argv["xapiEndpoint"])
-	kTouchStats.setXApiEndpoint(argv["xapiEndpoint"]);
+if (config["xapiEndpoint"])
+	kTouchStats.setXApiEndpoint(config["xapiEndpoint"]);
 
-if (argv["xapiUser"])
-	kTouchStats.setXApiUser(argv["xapiUser"]);
+if (config["xapiUser"])
+	kTouchStats.setXApiUser(config["xapiUser"]);
 
-if (argv["xapiPassword"])
-	kTouchStats.setXApiPassword(argv["xapiPassword"]);
+if (config["xapiPassword"])
+	kTouchStats.setXApiPassword(config["xapiPassword"]);
 
-if (argv["actorDomain"])
-	kTouchStats.setActorDomain(argv["actorDomain"]);
+if (config["actorDomain"])
+	kTouchStats.setActorDomain(config["actorDomain"]);
 
-if (argv["defaultVerbPrefix"])
-	kTouchStats.setDefaultVerbPrefix(argv["defaultVerbPrefix"]);
+if (config["defaultVerbPrefix"])
+	kTouchStats.setDefaultVerbPrefix(config["defaultVerbPrefix"]);
 
 kTouchStats.run().then(
 	function() {},

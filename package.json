@@ -1,19 +1,19 @@
 {
-  "name": "ktouchstats",
+  "name": "ktouchxapi",
   "version": "0.0.6",
-  "description": "Gather information about KTouch progress for all users of a system.",
+  "description": "Translate KTouch statistics to xAPI statements.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/limikael/ktouchstats.git"
+    "url": "https://github.com/tunapanda/ktouchxapi.git"
   },
   "bin": {
-    "ktouchstats": "./src/ktouchstats.js"
+    "ktouchxapi": "./src/ktouchxapi.js"
   },
   "author": "",
   "bugs": {
-    "url": "https://github.com/limikael/ktouchstats/issues"
+    "url": "https://github.com/tunapanda/ktouchxapi/issues"
   },
-  "homepage": "https://github.com/limikael/ktouchstats",
+  "homepage": "https://github.com/tunapanda/ktouchxapi",
   "devDependencies": {
     "async": "^0.9.0",
     "grunt": "^0.4.5",

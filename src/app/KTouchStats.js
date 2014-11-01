@@ -116,7 +116,7 @@ KTouchStats.prototype.run = function() {
 		this.generateCsv();
 
 	if (this.xApiEndpoint) {
-		console.log("using endpoint: " + this.xApiEndpoint);
+		console.log("** Using xAPI endpoint: " + this.xApiEndpoint);
 
 		this.tinCan = new TinCan({
 			recordStores: [{
@@ -128,15 +128,11 @@ KTouchStats.prototype.run = function() {
 		});
 	}
 
-	console.log("will calll sync, tincan=" + this.tinCan);
-
 	if (this.tinCan)
 		this.syncNextUser();
 
 	else
 		this.runThenable.notifySuccess();
-
-	console.log("returning");
 
 	return this.runThenable;
 }
@@ -147,7 +143,7 @@ KTouchStats.prototype.run = function() {
  * @method setTinCan
  */
 KTouchStats.prototype.setTinCan = function(tinCan) {
-	console.log("setting tin can");
+	//console.log("setting tin can");
 	this.tinCan = tinCan;
 }
 
@@ -197,11 +193,13 @@ KTouchStats.prototype.generateCsv = function() {
  * @private
  */
 KTouchStats.prototype.syncNextUser = function() {
-	console.log("syncing, user index=" + this.userSyncIndex);
 	if (this.userSyncIndex >= this.kTouchUsers.length) {
 		this.runThenable.notifySuccess();
 		return;
 	}
+
+	var kTouchUser = this.kTouchUsers[this.userSyncIndex];
+	console.log("Syncing: " + kTouchUser.getActorEmail());
 
 	this.kTouchUsers[this.userSyncIndex].syncToXApi(this.tinCan).then(
 		this.onUserSyncComplete.bind(this),

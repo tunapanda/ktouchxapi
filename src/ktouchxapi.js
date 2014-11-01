@@ -2,7 +2,7 @@
 
 
 function usage() {
-	console.log("ktouchstats - Gather information about KTouch progress for all users of a system.");
+	console.log("ktouchxapi - Gather information about KTouch progress for all users of a system.");
 	console.log();
 	console.log("At least one of the options --csv or --xapiEndpoint needs to specified.");
 	console.log();

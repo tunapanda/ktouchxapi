@@ -11,9 +11,9 @@ var tincan = new TinCan({
 
 tincan.sendStatement({
 	timestamp: "2014-10-28T12:34:56",
-//  timestamp: "hello world",
 	actor: {
-		mbox: "mailto:li.mikael@gmail.com"
+		mbox: "mailto:li.mikael@gmail.com",
+		name: "Some Random Dude"
 	},
 	verb: {
 		id: "http://adlnet.gov/expapi/verbs/attempted"

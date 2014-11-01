@@ -7,16 +7,18 @@ function usage() {
 	console.log("At least one of the options --csv or --xapiEndpoint needs to specified.");
 	console.log();
 	console.log("Options:");
-	console.log("    --csv <filename>        - Filename to write output csv to.");
-	console.log("    --home <directory>      - Directory to scan for users.");
-	console.log("                              Default is system dependent.");
-	console.log("    --stats <filename>      - Filename relative to user home directory");
-	console.log("                              where KTouch statistics is found. Default is");
-	console.log("                              .kde/share/apps/ktouch/statistics.xml");
-	console.log("    --xapiEndpoint <url>    - Specify xApi endpoint url.");
-	console.log("    --xapiUser <username>   - Specify xApi username.");
-	console.log("    --xapiPassword <pw>     - Specify xApi password.");
-	console.log("    --actorDomain <domain>  - Records for xApi will be saved as username@domain.");
+	console.log("    --csv <filename>          - Filename to write output csv to.");
+	console.log("    --home <directory>        - Directory to scan for users.");
+	console.log("                                Default is system dependent.");
+	console.log("    --stats <filename>        - Filename relative to user home directory");
+	console.log("                                where KTouch statistics is found. Default is");
+	console.log("                                .kde/share/apps/ktouch/statistics.xml");
+	console.log("    --xapiEndpoint <url>      - Specify xApi endpoint url.");
+	console.log("    --xapiUser <username>     - Specify xApi username.");
+	console.log("    --xapiPassword <pw>       - Specify xApi password.");
+	console.log("    --actorDomain <domain>    - Records for xApi will be saved as username@domain.");
+	console.log("    --defaultVerbPrefix <pfx> - Prefix to use for verbs in case the does not");
+	console.log("                                provide a proper url.");
 	console.log();
 
 	process.exit(1);
@@ -51,6 +53,9 @@ if (argv["xapiPassword"])
 
 if (argv["actorDomain"])
 	kTouchStats.setActorDomain(argv["actorDomain"]);
+
+if (argv["defaultVerbPrefix"])
+	kTouchStats.setDefaultVerbPrefix(argv["defaultVerbPrefix"]);
 
 kTouchStats.run().then(
 	function() {},

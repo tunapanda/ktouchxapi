@@ -11,6 +11,7 @@ function KTouchUser(userName, kTouchStats) {
 	this.userName = userName;
 	this.kTouchStats = kTouchStats;
 	this.actorDomain = null;
+	this.defaultVerbPrefix = "http://www.example.com";
 }
 
 /**
@@ -35,6 +36,22 @@ KTouchUser.prototype.getUserName = function() {
  */
 KTouchUser.prototype.setActorDomain = function(actorDomain) {
 	this.actorDomain = actorDomain;
+}
+
+/**
+ * Set default verb prefix.
+ * @method setDefaultVerbPrefix
+ */
+KTouchUser.prototype.setDefaultVerbPrefix = function(value) {
+	this.defaultVerbPrefix = value;
+}
+
+/**
+ * Get default verb prefix.
+ * @method getDefaultVerbPrefix
+ */
+KTouchUser.prototype.getDefaultVerbPrefix = function() {
+	return this.defaultVerbPrefix;
 }
 
 /**
@@ -88,7 +105,7 @@ KTouchUser.getAllLectureUrlsForUsers = function(users) {
  * @method findKTouchUsers
  * @static
  */
-KTouchUser.findKTouchUsers = function(baseHomeDir, statisticsFileName, actorDomain) {
+KTouchUser.findKTouchUsers = function(baseHomeDir, statisticsFileName, actorDomain, defaultVerbPrefix) {
 	var allUsers = FileUtil.readdirNonDotSync(baseHomeDir);
 	var kTouchUsers = [];
 	var i;
@@ -100,6 +117,7 @@ KTouchUser.findKTouchUsers = function(baseHomeDir, statisticsFileName, actorDoma
 		if (FileUtil.existsSync(userStatisticsFileName)) {
 			kTouchUser = new KTouchUser(user, new KTouchStatsFile(userStatisticsFileName));
 			kTouchUser.setActorDomain(actorDomain);
+			kTouchUser.setDefaultVerbPrefix(defaultVerbPrefix);
 			kTouchUsers.push(kTouchUser);
 		}
 	}

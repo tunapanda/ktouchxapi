@@ -14,6 +14,10 @@ module.exports = function(grunt) {
 			function(next) {
 				var job = new qsub("./node_modules/.bin/jasmine-node");
 				job.arg("test/unit");
+
+				if (grunt.option("match"))
+					job.arg("--match", grunt.option("match"));
+
 				job.show().expect(0);
 
 				job.run().then(next, grunt.fail.fatal);

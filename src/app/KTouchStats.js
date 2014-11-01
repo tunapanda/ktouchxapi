@@ -23,6 +23,7 @@ function KTouchStats() {
 	this.tinCan = null;
 	this.actorDomain = "example.com";
 	this.userSyncIndex = 0;
+	this.defaultVerbPrefix = "http://www.example.com/";
 }
 
 /**
@@ -82,6 +83,14 @@ KTouchStats.prototype.setXApiPassword = function(value) {
 }
 
 /**
+ * Set default verb prefix.
+ * @method setDefaultVerbPrefix
+ */
+KTouchStats.prototype.setDefaultVerbPrefix = function(value) {
+	this.defaultVerbPrefix = value;
+}
+
+/**
  * Run.
  */
 KTouchStats.prototype.run = function() {
@@ -100,7 +109,8 @@ KTouchStats.prototype.run = function() {
 	this.kTouchUsers = KTouchUser.findKTouchUsers(
 		this.baseHomeDir,
 		this.statisticsFileName,
-		this.actorDomain);
+		this.actorDomain,
+		this.defaultVerbPrefix);
 
 	if (this.csvOutputFileName)
 		this.generateCsv();

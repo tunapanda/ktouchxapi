@@ -1,5 +1,6 @@
 var Thenable = require("../utils/Thenable");
 var TinCan = require("tincanjs");
+var url = require("url");
 
 /**
  * Manage a xAPI statement corresponding to a ktouch level.
@@ -10,6 +11,7 @@ function LevelStatement(levelStats, actorEmail) {
 	this.thenable = null;
 	this.actorEmail = null;
 	this.thenable = null;
+	this.defaultVerbPrefix = "http://www.example.com/"
 
 	if (actorEmail)
 		this.actorEmail = actorEmail;
@@ -21,6 +23,15 @@ function LevelStatement(levelStats, actorEmail) {
  */
 LevelStatement.prototype.setActorEmail = function(actorEmail) {
 	this.actorEmail = actorEmail;
+}
+
+/**
+ * Set prefix to use for verbs in case the lecture is not
+ * a proper url.
+ * @method setDefaultVerbPrefix
+ */
+LevelStatement.prototype.setDefaultVerbPrefix = function(value) {
+	this.defaultVerbPrefix = value;
 }
 
 /**
@@ -52,12 +63,15 @@ LevelStatement.prototype.getXApiStatement = function() {
  * @method getTargetUrl
  */
 LevelStatement.prototype.getTargetUrl = function() {
-	var url = this.levelStats.getLecture().getUrl();
+	var targetUrl = this.levelStats.getLecture().getUrl();
+	var parsedUrl = url.parse(targetUrl);
 
-	if (url == "default")
-		url = "http://example.com/default";
+	//console.log(parsedUrl);
 
-	return url + "#" + this.levelStats.getNumber();
+	if (!parsedUrl.protocol)
+		targetUrl = this.defaultVerbPrefix + targetUrl;
+
+	return targetUrl + "#" + this.levelStats.getNumber();
 }
 
 /**
@@ -71,7 +85,7 @@ LevelStatement.prototype.sync = function(tinCan) {
 	if (!this.thenable)
 		this.thenable = new Thenable();
 
-	console.log("syncing target: " + this.getTargetUrl());
+	//console.log("syncing target: " + this.getTargetUrl());
 
 	var params = {
 		"agent": new TinCan.Agent({

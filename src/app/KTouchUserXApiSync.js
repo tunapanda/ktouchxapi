@@ -22,7 +22,7 @@ KTouchUserXApiSync.prototype.sync = function(tinCan) {
 
 	this.tinCan = tinCan;
 
-	var levelStats = this.kTouchUser.getKTouchStats().getLevelStats();
+	var levelStats = this.kTouchUser.getStats().getLevelStats();
 	this.statements = [];
 	for (i = 0; i < levelStats.length; i++) {
 		var statement = new LevelStatement(levelStats[i])

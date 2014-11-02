@@ -7,19 +7,19 @@ var KTouchUserXApiSync = require("./KTouchUserXApiSync");
  * Process information for one ktouch user.
  * @class KTouchUser
  */
-function KTouchUser(userName, kTouchStats) {
+function KTouchUser(userName, stats, app) {
 	this.userName = userName;
-	this.kTouchStats = kTouchStats;
-	this.actorDomain = null;
+	this.stats = stats;
+	this.app = app;
 	this.defaultVerbPrefix = "http://www.example.com";
 }
 
 /**
  * Get KTouch stats file for the user.
- * @method getKTouchStats
+ * @method getStats
  */
-KTouchUser.prototype.getKTouchStats = function() {
-	return this.kTouchStats;
+KTouchUser.prototype.getStats = function() {
+	return this.stats;
 }
 
 /**
@@ -31,27 +31,11 @@ KTouchUser.prototype.getUserName = function() {
 }
 
 /**
- * Set domain for actor email.
- * @method setActorDomain
- */
-KTouchUser.prototype.setActorDomain = function(actorDomain) {
-	this.actorDomain = actorDomain;
-}
-
-/**
- * Set default verb prefix.
- * @method setDefaultVerbPrefix
- */
-KTouchUser.prototype.setDefaultVerbPrefix = function(value) {
-	this.defaultVerbPrefix = value;
-}
-
-/**
  * Get default verb prefix.
  * @method getDefaultVerbPrefix
  */
 KTouchUser.prototype.getDefaultVerbPrefix = function() {
-	return this.defaultVerbPrefix;
+	return this.app.getDefaultVerbPrefix();
 }
 
 /**
@@ -59,10 +43,12 @@ KTouchUser.prototype.getDefaultVerbPrefix = function() {
  * @method getActorEmail
  */
 KTouchUser.prototype.getActorEmail = function() {
-	if (!this.actorDomain)
+	var actorDomain = this.app.getActorDomain();
+
+	if (!actorDomain)
 		throw new Error("actor domain not set");
 
-	return this.userName + "@" + this.actorDomain;
+	return this.userName + "@" + actorDomain;
 }
 
 /**
@@ -88,7 +74,7 @@ KTouchUser.getAllLectureUrlsForUsers = function(users) {
 	var i, u;
 
 	for (u = 0; u < users.length; u++) {
-		var stats = users[u].getKTouchStats();
+		var stats = users[u].getStats();
 		for (i = 0; i < stats.getLectureUrls().length; i++) {
 			var url = stats.getLectureUrls()[i];
 
@@ -98,31 +84,6 @@ KTouchUser.getAllLectureUrlsForUsers = function(users) {
 	}
 
 	return allUrls;
-}
-
-/**
- * Scan a home dir and find all ktouch users.
- * @method findKTouchUsers
- * @static
- */
-KTouchUser.findKTouchUsers = function(baseHomeDir, statisticsFileName, actorDomain, defaultVerbPrefix) {
-	var allUsers = FileUtil.readdirNonDotSync(baseHomeDir);
-	var kTouchUsers = [];
-	var i;
-
-	for (i = 0; i < allUsers.length; i++) {
-		user = allUsers[i];
-		var userStatisticsFileName = baseHomeDir + "/" + user + "/" + statisticsFileName;
-
-		if (FileUtil.existsSync(userStatisticsFileName)) {
-			kTouchUser = new KTouchUser(user, new KTouchStatsFile(userStatisticsFileName));
-			kTouchUser.setActorDomain(actorDomain);
-			kTouchUser.setDefaultVerbPrefix(defaultVerbPrefix);
-			kTouchUsers.push(kTouchUser);
-		}
-	}
-
-	return kTouchUsers;
 }
 
 module.exports = KTouchUser;

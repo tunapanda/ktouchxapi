@@ -3,10 +3,6 @@ var KTouchStatsFile = require("../../../src/ktouchstats/KTouchStatsFile");
 
 describe("KTouchUser", function() {
 	it("can send stats to tincan", function(done) {
-		var statsFile = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
-		var kTouchUser = new KTouchUser("micke", statsFile);
-		kTouchUser.setActorDomain("hello.com");
-
 		var mockTinCan = {};
 		mockTinCan.getStatements = function(p) {
 			p.callback(null, {
@@ -15,6 +11,7 @@ describe("KTouchUser", function() {
 		};
 
 		mockTinCan.sendStatement = function(statement, cb) {
+			expect(statement.actor.mbox).toBe("micke@hello.com");
 			cb([{
 				err: null
 			}]);
@@ -22,6 +19,17 @@ describe("KTouchUser", function() {
 
 		spyOn(mockTinCan, "getStatements").and.callThrough();
 		spyOn(mockTinCan, "sendStatement").and.callThrough();
+
+		var mockApp = {};
+		mockApp.getActorDomain = function() {
+			return "hello.com";
+		}
+		mockApp.getDefaultVerbPrefix = function() {
+			return "http://example.com/";
+		}
+
+		var statsFile = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
+		var kTouchUser = new KTouchUser("micke", statsFile, mockApp);
 
 		kTouchUser.syncToXApi(mockTinCan).then(
 			function() {

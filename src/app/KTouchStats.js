@@ -43,6 +43,14 @@ KTouchStats.prototype.setActorDomain = function(actorDomain) {
 }
 
 /**
+ * Get actor domain.
+ * @method getActorDomain
+ */
+KTouchStats.prototype.getActorDomain = function() {
+	return this.actorDomain;
+}
+
+/**
  * Set filename where to save csv data.
  * @method setCsvOutputFileName
  */
@@ -91,6 +99,14 @@ KTouchStats.prototype.setDefaultVerbPrefix = function(value) {
 }
 
 /**
+ * Get default verb prefix.
+ * @method getDefaultVerbPrefix
+ */
+KTouchStats.prototype.getDefaultVerbPrefix = function() {
+	return this.defaultVerbPrefix;
+}
+
+/**
  * Run.
  */
 KTouchStats.prototype.run = function() {
@@ -106,11 +122,7 @@ KTouchStats.prototype.run = function() {
 	}
 
 	// Find all users that have a KTouch statistics file.
-	this.kTouchUsers = KTouchUser.findKTouchUsers(
-		this.baseHomeDir,
-		this.statisticsFileName,
-		this.actorDomain,
-		this.defaultVerbPrefix);
+	this.findKTouchUsers();
 
 	if (this.csvOutputFileName)
 		this.generateCsv();
@@ -171,7 +183,7 @@ KTouchStats.prototype.generateCsv = function() {
 
 		for (i = 0; i < allUrls.length; i++) {
 			var url = allUrls[i];
-			var lectureStats = kTouchUser.getKTouchStats().getLectureByUrl(url)
+			var lectureStats = kTouchUser.getStats().getLectureByUrl(url)
 
 			if (lectureStats)
 				row.push(lectureStats.getMaxLevelStarted());
@@ -224,6 +236,27 @@ KTouchStats.prototype.onUserSyncComplete = function() {
  */
 KTouchStats.prototype.onUserSyncError = function(res) {
 	this.runThenable.notifyError(res);
+}
+
+/**
+ * Scan home dir and find all ktouch users.
+ * @method findKTouchUsers
+ * @private
+ */
+KTouchStats.prototype.findKTouchUsers = function() {
+	var allUserNames = FileUtil.readdirNonDotSync(this.baseHomeDir);
+	var i;
+
+	this.kTouchUsers = [];
+	for (i = 0; i < allUserNames.length; i++) {
+		userName = allUserNames[i];
+		var userStatisticsFileName = this.baseHomeDir + "/" + userName + "/" + this.statisticsFileName;
+
+		if (FileUtil.existsSync(userStatisticsFileName)) {
+			kTouchUser = new KTouchUser(userName, new KTouchStatsFile(userStatisticsFileName), this);
+			this.kTouchUsers.push(kTouchUser);
+		}
+	}
 }
 
 module.exports = KTouchStats;

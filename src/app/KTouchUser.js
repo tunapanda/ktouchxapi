@@ -31,6 +31,20 @@ KTouchUser.prototype.getUserName = function() {
 }
 
 /**
+ * Get full name.
+ * @method getFullName
+ */
+KTouchUser.prototype.getFullName = function() {
+	var passwd = this.app.getPasswd();
+
+	if (passwd)
+		return passwd.getFullNameByUserName(this.userName);
+
+	else
+		return null;
+}
+
+/**
  * Get default verb prefix.
  * @method getDefaultVerbPrefix
  */

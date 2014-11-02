@@ -12,6 +12,7 @@ function LevelStatement(levelStats, actorEmail) {
 	this.actorEmail = null;
 	this.thenable = null;
 	this.defaultVerbPrefix = "http://www.example.com/"
+	this.name = null;
 
 	if (actorEmail)
 		this.actorEmail = actorEmail;
@@ -23,6 +24,14 @@ function LevelStatement(levelStats, actorEmail) {
  */
 LevelStatement.prototype.setActorEmail = function(actorEmail) {
 	this.actorEmail = actorEmail;
+}
+
+/**
+ * Set name for user.
+ * @methd setName
+ */
+LevelStatement.prototype.setName = function(name) {
+	this.name = name;
 }
 
 /**
@@ -44,7 +53,7 @@ LevelStatement.prototype.getXApiStatement = function() {
 
 	//console.log(this.levelStats.getTimestamp());
 
-	return {
+	var statement = {
 		timestamp: this.levelStats.getTimestamp(),
 		actor: {
 			mbox: this.actorEmail
@@ -56,6 +65,11 @@ LevelStatement.prototype.getXApiStatement = function() {
 			id: this.getTargetUrl()
 		}
 	};
+
+	if (this.name)
+		statement.actor.name = this.name;
+
+	return statement;
 }
 
 /**

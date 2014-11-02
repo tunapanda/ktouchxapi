@@ -9,6 +9,8 @@ function Passwd(passwdFileName) {
 	if (!passwdFileName)
 		passwdFileName = "/etc/passwd";
 
+	this.fileName = passwdFileName;
+
 	var passwdContent = fs.readFileSync(passwdFileName)
 	var passwdLines = passwdContent.toString().split("\n");
 
@@ -21,6 +23,14 @@ function Passwd(passwdFileName) {
 		this.records.push(passwdRecord);
 		this.recordsByUsername[passwdRecord[0]] = passwdRecord;
 	}
+}
+
+/**
+ * Get file name.
+ * @method getFileName
+ */
+Passwd.prototype.getFileName = function() {
+	return this.fileName;
 }
 
 /**

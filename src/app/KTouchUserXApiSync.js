@@ -28,6 +28,10 @@ KTouchUserXApiSync.prototype.sync = function(tinCan) {
 		var statement = new LevelStatement(levelStats[i])
 		statement.setActorEmail(this.kTouchUser.getActorEmail());
 		statement.setDefaultVerbPrefix(this.kTouchUser.getDefaultVerbPrefix());
+
+		if (this.kTouchUser.getFullName())
+			statement.setName(this.kTouchUser.getFullName());
+
 		this.statements.push(statement);
 	}
 

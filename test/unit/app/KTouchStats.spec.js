@@ -58,7 +58,6 @@ describe("KTouchStats", function() {
 		ktouchstats.setTinCan(mockTinCan);
 		ktouchstats.setActorDomain("example.com");
 
-		console.log("running...");
 		ktouchstats.run().then(
 			function() {
 				expect(mockTinCan.getStatements.calls.count()).toBe(16);

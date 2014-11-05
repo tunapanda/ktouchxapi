@@ -14,14 +14,10 @@ function KTouchUserXApiSync(kTouchUser, tinCan) {
 }
 
 /**
- * Perform the sync.
- * @method sync
+ * Create the statements.
+ * @method createStatements
  */
-KTouchUserXApiSync.prototype.sync = function(tinCan) {
-	var i;
-
-	this.tinCan = tinCan;
-
+KTouchUserXApiSync.prototype.createStatements = function() {
 	var levelStats = this.kTouchUser.getStats().getLevelStats();
 	this.statements = [];
 	for (i = 0; i < levelStats.length; i++) {
@@ -34,6 +30,17 @@ KTouchUserXApiSync.prototype.sync = function(tinCan) {
 
 		this.statements.push(statement);
 	}
+}
+
+/**
+ * Perform the sync.
+ * @method sync
+ */
+KTouchUserXApiSync.prototype.sync = function(tinCan) {
+	var i;
+
+	this.tinCan = tinCan;
+	this.createStatements();
 
 	this.thenable = new Thenable();
 	this.statementIndex = 0;

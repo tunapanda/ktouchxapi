@@ -40,11 +40,11 @@ describe("KTouchUser", function() {
 
 		kTouchUser.syncToXApi(mockTinCan).then(
 			function() {
+				expect(mockTinCan.getStatements).toHaveBeenCalled();
+				expect(mockTinCan.sendStatement).toHaveBeenCalled();
+				console.log("calls: " + mockTinCan.sendStatement.calls.count());
 				done();
 			}
 		);
-
-		expect(mockTinCan.getStatements).toHaveBeenCalled();
-		expect(mockTinCan.sendStatement).toHaveBeenCalled();
 	});
 });

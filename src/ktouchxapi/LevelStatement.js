@@ -13,9 +13,26 @@ function LevelStatement(levelStats, actorEmail) {
 	this.thenable = null;
 	this.defaultVerbPrefix = "http://www.example.com/"
 	this.name = null;
+	this.filterFuntions = [];
 
 	if (actorEmail)
 		this.actorEmail = actorEmail;
+}
+
+/**
+ * Add a filter function.
+ * @method addFilterFunction
+ */
+LevelStatement.prototype.addFilterFunction = function(f) {
+	this.filterFuntions.push(f);
+}
+
+/**
+ * Add several filter functions.
+ * @method addFilterFunctions
+ */
+LevelStatement.prototype.addFilterFunctions = function(f) {
+	this.filterFuntions = this.filterFuntions.concat(f);
 }
 
 /**
@@ -162,8 +179,19 @@ LevelStatement.prototype.insert = function(tinCan) {
 	if (!this.thenable)
 		this.thenable = new Thenable();
 
-	this.tinCan.sendStatement(this.getXApiStatement(), this.onInsertDone.bind(this));
-	return this.thenable;
+	var thenable = this.thenable;
+	var statement = this.getXApiStatement();
+
+	for (var i = 0; i < this.filterFuntions.length; i++) {
+		if (!this.filterFuntions[i](statement)) {
+			this.thenable.resolve();
+			return thenable;
+		}
+	}
+
+	this.tinCan.sendStatement(statement, this.onInsertDone.bind(this));
+
+	return thenable;
 }
 
 /**

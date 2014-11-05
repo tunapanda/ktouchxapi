@@ -34,6 +34,9 @@ describe("KTouchUser", function() {
 		mockApp.getPasswd = function() {
 			return passwd;
 		}
+		mockApp.getFilterFunctions = function() {
+			return [];
+		}
 
 		var statsFile = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
 		var kTouchUser = new KTouchUser("alice", statsFile, mockApp);

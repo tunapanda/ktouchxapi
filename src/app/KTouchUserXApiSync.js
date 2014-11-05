@@ -5,9 +5,8 @@ var Thenable = require("../utils/Thenable");
  * Sync ktouch user information with xapi.
  * @class KTouchUserXApiSync
  */
-function KTouchUserXApiSync(kTouchUser, tinCan) {
+function KTouchUserXApiSync(kTouchUser) {
 	this.kTouchUser = kTouchUser;
-	this.tinCan = tinCan;
 
 	this.statements = [];
 	this.statementIndex = 0;
@@ -24,6 +23,7 @@ KTouchUserXApiSync.prototype.createStatements = function() {
 		var statement = new LevelStatement(levelStats[i])
 		statement.setActorEmail(this.kTouchUser.getActorEmail());
 		statement.setDefaultVerbPrefix(this.kTouchUser.getDefaultVerbPrefix());
+		statement.addFilterFunctions(this.kTouchUser.getApp().getFilterFunctions());
 
 		if (this.kTouchUser.getFullName())
 			statement.setName(this.kTouchUser.getFullName());

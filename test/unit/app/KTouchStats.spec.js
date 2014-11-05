@@ -69,4 +69,48 @@ describe("KTouchStats", function() {
 			}
 		);
 	});
+
+	it("can use a filter function", function(done) {
+		var mockTinCan = {};
+		mockTinCan.getStatements = function(p) {
+			p.callback(null, {
+				statements: []
+			});
+		};
+
+		mockTinCan.sendStatement = function(statement, cb) {
+			cb([{
+				err: null
+			}]);
+		};
+
+		spyOn(mockTinCan, "getStatements").and.callThrough();
+		spyOn(mockTinCan, "sendStatement").and.callThrough();
+
+		function filter(statement) {
+			if (statement.actor.mbox == "bob@example.com")
+				return true;
+
+			else
+				return false;
+		}
+
+		var ktouchstats = new KTouchStats();
+		ktouchstats.addFilterFunction(filter);
+		ktouchstats.setBaseHomeDir(__dirname + "/users");
+		ktouchstats.setStatisticsFileName("teststats.xml");
+		ktouchstats.setTinCan(mockTinCan);
+		ktouchstats.setActorDomain("example.com");
+
+		ktouchstats.run().then(
+			function() {
+				expect(mockTinCan.getStatements.calls.count()).toBe(16);
+				expect(mockTinCan.sendStatement.calls.count()).toBe(8);
+				done();
+			},
+			function(e) {
+				console.log("failed: " + e);
+			}
+		);
+	});
 });

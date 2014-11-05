@@ -6,11 +6,11 @@
    <Title>A default lecture...</Title>
    <AllLevelStats>
     <LevelStats Corrects="222" Words="38" Number="0" Chars="225" Time="68.5">
-     <Time>2014-08-13T10:38:15</Time>
+     <Time>2024-08-13T10:38:15</Time>
      <CharStats> 84 1 0 104 6 0 105 10 0 115 9 0 97 13 0 109 5 0 108 11 0 100 3 0 101 22 0 102 8 1 117 12 0 116 21 0 120 2 0 46 3 0 73 2 0 121 6 0 111 8 1 119 1 0 110 11 0 114 11 1 112 5 0 99 8 0 103 3 0 44 1 0 47 1 0 69 1 0 118 1 0 72 1 0 33 3 0</CharStats>
     </LevelStats>
     <LevelStats Corrects="222" Words="38" Number="0" Chars="230" Time="58.5">
-     <Time>2014-08-13T10:40:22</Time>
+     <Time>2024-08-13T10:40:22</Time>
      <CharStats> 84 1 0 104 6 0 105 10 1 115 9 0 97 13 0 109 5 0 108 11 0 100 3 0 101 22 0 102 8 0 117 12 1 116 21 0 120 2 1 46 3 0 73 2 0 121 6 1 111 8 0 119 1 0 110 11 1 114 11 1 112 5 0 99 8 0 103 3 0 44 1 0 47 1 0 69 1 1 118 1 0 72 1 0 33 3 0</CharStats>
     </LevelStats>
    </AllLevelStats>

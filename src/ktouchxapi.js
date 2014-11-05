@@ -22,6 +22,8 @@ function usage() {
 	console.log("                                provide a proper url.");
 	console.log("    --passwd=<filename>       - Use information in this file, e.g. /etc/passwd, to");
 	console.log("                                map username to full name for xAPI statements.");
+	console.log("    --filter=<filter, ...>    - Comma separated list of filters.")
+	console.log("                                Available filters: nofuture");
 	console.log();
 
 	process.exit(1);
@@ -70,6 +72,18 @@ if (config["defaultVerbPrefix"])
 
 if (config["passwd"])
 	kTouchStats.setPasswdFileName(config["passwd"]);
+
+if (config["filter"]) {
+	var filters = config["filter"].split(",");
+
+	for (var i = 0; i < filters.length; i++) {
+		var filter = filters[i].trim();
+		var filterFunction = require("./filters/" + filter);
+
+		kTouchStats.addFilterFunction(filterFunction);
+	}
+}
+
 
 kTouchStats.run().then(
 	function() {},

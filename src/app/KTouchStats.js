@@ -6,7 +6,7 @@ var CsvHack = require("../utils/CsvHack");
 var KTouchUser = require("./KTouchUser");
 var TinCan = require("tincanjs");
 var fs = require("fs");
-var Passwd=require("../utils/Passwd");
+var Passwd = require("../utils/Passwd");
 
 /**
  * Gather statistics for KTouch.
@@ -26,6 +26,23 @@ function KTouchStats() {
 	this.userSyncIndex = 0;
 	this.defaultVerbPrefix = "http://www.example.com/";
 	this.passwd = null;
+	this.filterFunctions = [];
+}
+
+/**
+ * Add a filter function
+ * @method addFilterFunction
+ */
+KTouchStats.prototype.addFilterFunction = function(f) {
+	this.filterFunctions.push(f);
+}
+
+/**
+ * Get filter functions.
+ * @method getFilterFunctions
+ */
+KTouchStats.prototype.getFilterFunctions = function() {
+	return this.filterFunctions;
 }
 
 /**

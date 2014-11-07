@@ -18,8 +18,8 @@ function usage() {
 	console.log("    --xapiUser=<username>     - Specify xApi username.");
 	console.log("    --xapiPassword=<pw>       - Specify xApi password.");
 	console.log("    --actorDomain=<domain>    - Records for xApi will be saved as username@domain.");
-	console.log("    --defaultVerbPrefix=<pfx> - Prefix to use for verbs in case the does not");
-	console.log("                                provide a proper url.");
+	console.log("    --defaultVerbPrefix=<pfx> - Prefix to use for verbs in case the statistics file");
+	console.log("                                does not provide a proper url.");
 	console.log("    --passwd=<filename>       - Use information in this file, e.g. /etc/passwd, to");
 	console.log("                                map username to full name for xAPI statements.");
 	console.log("    --filter=<filter, ...>    - Comma separated list of filters.")

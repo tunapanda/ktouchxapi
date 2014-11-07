@@ -27,3 +27,8 @@ Installation
 This program is distributed using npm, so install it like so:
 
     sudo npm install -g ktouchxapi
+
+Caveats
+-------
+
+This program requires node 0.10 or higher. If you use linux, see upgrade instructions [here](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager).

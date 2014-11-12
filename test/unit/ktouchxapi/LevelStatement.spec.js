@@ -15,6 +15,14 @@ describe("LevelStatement", function() {
 		levelStatement.setActorEmail("hello@world.com");
 		//console.log(levelStatement.getXApiStatement());
 
+		for (var i = 0; i < statsFile.getLevelStats().length; i++) {
+			var levelStats = statsFile.getLevelStats()[i];
+			var levelStatement = new LevelStatement(levelStats);
+			levelStatement.setActorEmail("hello@world.com");
+
+			console.log("url: " + levelStatement.getTargetUrl());
+		}
+
 		//level.getXApiStatement();
 	});
 

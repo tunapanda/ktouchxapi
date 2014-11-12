@@ -69,7 +69,7 @@ TinCanSync.prototype.onGetStatementsResult = function(err, result) {
 	}
 
 	// Something matching already exists?
-	if (result.statements.length) {
+	if (result.statements && result.statements.length) {
 		this.statement = null;
 		var thenable = this.thenable;
 		this.thenable = null;

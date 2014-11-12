@@ -13,14 +13,6 @@ with the data there.
 
 For detailed options on how to run the program, run it from the command line without options.
 
-Todo
-----
-
-Currently, the program takes a bit of time to run, and the only way to get it to continously update
-the xAPI LRS would be to run it on a cron nightly. It would be really nice if it could run as a daemon
-and monitor the statistics files for changes. This could be done for example using
-[inotify](https://www.npmjs.org/package/inotify).
-
 Installation
 ------------
 
@@ -32,3 +24,23 @@ Caveats
 -------
 
 This program requires node 0.10 or higher. If you use linux, see upgrade instructions [here](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager).
+
+Todo
+----
+
+Needed for this program to be usable:
+
+* Use proper names for lectures. Load the lecture names from the lecture file, as specified in the stats file
+  Also, accept a search path where to look for lecture files if it is not available in the exact location
+  specified by the lecture file.
+* Use the verb completed if the accuracy is above 98%, otherwise attempted. The 98% figure should be configurable
+  by a command line / config option. Also, let this affect both the "successful" and "completed" flags.
+* Save the chars per minute as score.
+
+Nice to have
+------------
+
+Currently, the program takes a bit of time to run, and the only way to get it to continously update
+the xAPI LRS would be to run it on a cron nightly. It would be really nice if it could run as a daemon
+and monitor the statistics files for changes. This could be done for example using
+[inotify](https://www.npmjs.org/package/inotify).

@@ -1,5 +1,6 @@
 var Thenable = require("../utils/Thenable");
 var TinCan = require("tincanjs");
+var TinCanSync = require("../utils/TinCanSync");
 var url = require("url");
 
 /**
@@ -8,9 +9,7 @@ var url = require("url");
  */
 function LevelStatement(levelStats, actorEmail) {
 	this.levelStats = levelStats;
-	this.thenable = null;
 	this.actorEmail = null;
-	this.thenable = null;
 	this.defaultVerbPrefix = "http://www.example.com/"
 	this.name = null;
 	this.filterFuntions = [];
@@ -45,7 +44,7 @@ LevelStatement.prototype.setActorEmail = function(actorEmail) {
 
 /**
  * Set name for user.
- * @methd setName
+ * @method setName
  */
 LevelStatement.prototype.setName = function(name) {
 	this.name = name;
@@ -97,8 +96,6 @@ LevelStatement.prototype.getTargetUrl = function() {
 	var targetUrl = this.levelStats.getLecture().getUrl();
 	var parsedUrl = url.parse(targetUrl);
 
-	//console.log(parsedUrl);
-
 	if (!parsedUrl.protocol)
 		targetUrl = this.defaultVerbPrefix + targetUrl;
 
@@ -110,103 +107,22 @@ LevelStatement.prototype.getTargetUrl = function() {
  * @method sync
  */
 LevelStatement.prototype.sync = function(tinCan) {
-	if (tinCan)
-		this.tinCan = tinCan;
-
-	if (!this.thenable)
-		this.thenable = new Thenable();
-
-	//console.log("syncing target: " + this.getTargetUrl());
-
-	var params = {
-		"agent": new TinCan.Agent({
-			"mbox": "mailto:" + this.actorEmail
-		}),
-
-		"activity": new TinCan.Activity({
-			"id": this.getTargetUrl()
-		})
-	};
-
-	var thenable = this.thenable;
-
-	this.tinCan.getStatements({
-		params: params,
-		callback: this.onGetStatementsDone.bind(this)
-	});
-
-	return thenable;
-}
-
-/**
- * Query for previous statements done.
- * @method onGetStatementsDone
- * @private
- */
-LevelStatement.prototype.onGetStatementsDone = function(err, result) {
-	if (err) {
-		this.thenable.reject(err);
-		this.thenable = null;
-		return;
-	}
-
-	//console.log("got previous: " + result.statements.length);
-	//console.log(result);
-
-	for (var i = 0; i < result.statements.length; i++) {
-		var statement = result.statements[i];
-
-		if (statement.timestamp == this.levelStats.getTimestamp()) {
-			//console.log("statement already exists");
-			var thenable = this.thenable;
-
-			thenable.resolve();
-			return;
-		}
-	}
-
-	this.insert();
-}
-
-/**
- * Insert into xAPI repo.
- * @method insert
- */
-LevelStatement.prototype.insert = function(tinCan) {
-	if (tinCan)
-		this.tinCan = tinCan;
-
-	if (!this.thenable)
-		this.thenable = new Thenable();
-
-	var thenable = this.thenable;
 	var statement = this.getXApiStatement();
 
 	for (var i = 0; i < this.filterFuntions.length; i++) {
 		if (!this.filterFuntions[i](statement)) {
-			this.thenable.resolve();
+			var thenable = new Thenable();
+			thenable.resolve();
 			return thenable;
 		}
 	}
 
-	this.tinCan.sendStatement(statement, this.onInsertDone.bind(this));
+	var tinCanSync = new TinCanSync(tinCan);
+	var thenable = tinCanSync.syncStatement(statement)
+
+	//console.log("thenable: " + thenable);
 
 	return thenable;
-}
-
-/**
- * Insert done.
- * @method onInsertDone
- */
-LevelStatement.prototype.onInsertDone = function(res) {
-	var thenable = this.thenable;
-	this.thenable = null;
-
-	if (res[0].err !== null)
-		thenable.reject(res[0]);
-
-	else
-		thenable.resolve();
 }
 
 module.exports = LevelStatement;

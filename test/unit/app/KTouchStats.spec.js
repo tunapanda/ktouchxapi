@@ -104,7 +104,7 @@ describe("KTouchStats", function() {
 
 		ktouchstats.run().then(
 			function() {
-				expect(mockTinCan.getStatements.calls.count()).toBe(16);
+				expect(mockTinCan.getStatements.calls.count()).toBe(8);
 				expect(mockTinCan.sendStatement.calls.count()).toBe(8);
 				done();
 			},

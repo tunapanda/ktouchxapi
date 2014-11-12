@@ -85,7 +85,7 @@ describe("LevelStatement", function() {
 
 		levelStatement.addFilterFunctions([filter]);
 
-		levelStatement.insert(mockTinCan).then(function() {
+		levelStatement.sync(mockTinCan).then(function() {
 			expect(mockTinCan.sendStatement.calls.count()).toBe(0);
 			done();
 		});

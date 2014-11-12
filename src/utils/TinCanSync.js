@@ -28,6 +28,8 @@ TinCanSync.prototype.syncStatement = function(statement) {
 	this.statement = statement;
 	this.thenable = new Thenable();
 
+	var thenable = this.thenable;
+
 	var params = {
 		"agent": new TinCan.Agent({
 			"mbox": this.statement.actor.mbox
@@ -46,7 +48,7 @@ TinCanSync.prototype.syncStatement = function(statement) {
 		callback: this.onGetStatementsResult.bind(this)
 	});
 
-	return this.thenable;
+	return thenable;
 }
 
 /**

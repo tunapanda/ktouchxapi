@@ -7,7 +7,8 @@ function usage() {
 	console.log("At least one of the options --csv or --xapiEndpoint needs to specified.");
 	console.log();
 	console.log("Options:");
-	console.log("    --config=<filename.yml>   - Read config options from file in yml format.")
+	console.log("    --config=<filename.yml>   - Read config options from file in yml format.");
+	console.log("                                These options are the same as the cmd-line opts.")
 	console.log("    --csv=<filename>          - Filename to write output csv to.");
 	console.log("    --home=<directory>        - Directory to scan for users.");
 	console.log("                                Default is system dependent.");
@@ -17,11 +18,13 @@ function usage() {
 	console.log("    --xapiEndpoint=<url>      - Specify xApi endpoint url.");
 	console.log("    --xapiUser=<username>     - Specify xApi username.");
 	console.log("    --xapiPassword=<pw>       - Specify xApi password.");
-	console.log("    --actorDomain=<domain>    - Records for xApi will be saved as username@domain.");
-	console.log("    --defaultVerbPrefix=<pfx> - Prefix to use for verbs in case the statistics file");
-	console.log("                                does not provide a proper url.");
-	console.log("    --passwd=<filename>       - Use information in this file, e.g. /etc/passwd, to");
-	console.log("                                map username to full name for xAPI statements.");
+	console.log("    --actorDomain=<domain>    - Records for xApi will be saved as ");
+	console.log("                                username@domain.");
+	console.log("    --defaultVerbPrefix=<pfx> - Prefix to use for verbs in case the statistics");
+	console.log("                                file does not provide a proper url.");
+	console.log("    --passwd=<filename>       - Use information in this file, e.g. /etc/passwd,");
+	console.log("                                to map usernames to full names for");
+	console.log("                                xAPI statements.");
 	console.log("    --filter=<filter, ...>    - Comma separated list of filters.")
 	console.log("                                Available filters: nofuture");
 	console.log();

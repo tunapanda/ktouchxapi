@@ -36,6 +36,8 @@ describe("KTouchStats", function() {
 	});
 
 	it("can sync to xapi", function(done) {
+		var seenUsers = [];
+
 		var mockTinCan = {};
 		mockTinCan.getStatements = function(p) {
 			p.callback(null, {
@@ -44,6 +46,11 @@ describe("KTouchStats", function() {
 		};
 
 		mockTinCan.sendStatement = function(statement, cb) {
+			expect(statement.actor.mbox).not.toBeNull();
+
+			if (seenUsers.indexOf(statement.actor.mbox) < 0)
+				seenUsers.push(statement.actor.mbox);
+
 			cb([{
 				err: null
 			}]);
@@ -62,6 +69,9 @@ describe("KTouchStats", function() {
 			function() {
 				expect(mockTinCan.getStatements.calls.count()).toBe(16);
 				expect(mockTinCan.sendStatement.calls.count()).toBe(16);
+
+				expect(seenUsers.length).toBe(2);
+				expect(seenUsers.indexOf("bob@example.com")).toBeGreaterThan(-1);
 				done();
 			},
 			function(e) {

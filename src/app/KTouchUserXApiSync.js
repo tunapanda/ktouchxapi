@@ -20,14 +20,7 @@ KTouchUserXApiSync.prototype.createStatements = function() {
 	var levelStats = this.kTouchUser.getStats().getLevelStats();
 	this.statements = [];
 	for (i = 0; i < levelStats.length; i++) {
-		var statement = new LevelStatement(levelStats[i])
-		statement.setActorEmail(this.kTouchUser.getActorEmail());
-		statement.setDefaultVerbPrefix(this.kTouchUser.getDefaultVerbPrefix());
-		statement.addFilterFunctions(this.kTouchUser.getApp().getFilterFunctions());
-
-		if (this.kTouchUser.getFullName())
-			statement.setName(this.kTouchUser.getFullName());
-
+		var statement = new LevelStatement(levelStats[i], this.kTouchUser);
 		this.statements.push(statement);
 	}
 }

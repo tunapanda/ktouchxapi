@@ -2,6 +2,29 @@ var KTouchStatsFile = require("../../../src/ktouchstats/KTouchStatsFile");
 var LevelStatement = require("../../../src/ktouchxapi/LevelStatement");
 
 describe("LevelStatement", function() {
+	var mockKTouchUser;
+	var mockApp;
+
+	beforeEach(function() {
+		mockApp = {};
+		mockApp.getDefaultVerbPrefix = function() {
+			return "http://www.ktouch.org/";
+		}
+
+		mockKTouchUser = {};
+		mockKTouchUser.getActorEmail = function() {
+			return "hello@world.com";
+		}
+
+		mockKTouchUser.getApp = function() {
+			return mockApp;
+		}
+
+		mockKTouchUser.getFullName = function() {
+			return "Hello World";
+		}
+	});
+
 	it("can generate an xapi statement from a ktouch level", function() {
 		var statsFile = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
 
@@ -11,14 +34,12 @@ describe("LevelStatement", function() {
 		var lecture = statsFile.getLectureByUrl(statsFile.getLectureUrls()[1]);
 		var levelStats = lecture.getLevelStats()[0];
 
-		var levelStatement = new LevelStatement(levelStats);
-		levelStatement.setActorEmail("hello@world.com");
+		var levelStatement = new LevelStatement(levelStats, mockKTouchUser);
 		//console.log(levelStatement.getXApiStatement());
 
 		for (var i = 0; i < statsFile.getLevelStats().length; i++) {
 			var levelStats = statsFile.getLevelStats()[i];
-			var levelStatement = new LevelStatement(levelStats);
-			levelStatement.setActorEmail("hello@world.com");
+			var levelStatement = new LevelStatement(levelStats, mockKTouchUser);
 
 			console.log("url: " + levelStatement.getTargetUrl());
 		}
@@ -41,8 +62,7 @@ describe("LevelStatement", function() {
 			return 1;
 		}
 
-		var levelStatement = new LevelStatement(mockStats);
-		levelStatement.setDefaultVerbPrefix("http://www.ktouch.org/")
+		var levelStatement = new LevelStatement(mockStats, mockKTouchUser);
 
 		console.log("url: " + levelStatement.getTargetUrl());
 		expect(levelStatement.getTargetUrl()).toBe("http://www.ktouch.org/default#1");
@@ -74,9 +94,7 @@ describe("LevelStatement", function() {
 			return "1234";
 		}
 
-		var levelStatement = new LevelStatement(mockStats);
-		levelStatement.setDefaultVerbPrefix("http://www.ktouch.org/")
-		levelStatement.setActorEmail("hello@world.com");
+		var levelStatement = new LevelStatement(mockStats, mockKTouchUser);
 
 		var mockTinCan = {};
 		mockTinCan.sendStatement = function(statement, cb) {
@@ -91,7 +109,9 @@ describe("LevelStatement", function() {
 			return false;
 		};
 
-		levelStatement.addFilterFunctions([filter]);
+		mockApp.getFilterFunctions=function() {
+			return [filter];
+		}
 
 		levelStatement.sync(mockTinCan).then(function() {
 			expect(mockTinCan.sendStatement.calls.count()).toBe(0);

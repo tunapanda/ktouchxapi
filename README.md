@@ -28,6 +28,10 @@ This program requires node 0.10 or higher. If you use linux, see upgrade instruc
 Hacking
 -------
 
+We are listing the stuff we need to to in the
+[backlog](https://github.com/tunapanda/ktouchxapi/blob/master/BACKLOG.md). Please see there if there is something
+you want to help out with! Also feel free to add features there that you would like to see.
+
 In order to set up an anvironment for local development, clone the repo and `cd` into it, then do:
 
 ````

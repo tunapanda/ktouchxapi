@@ -33,8 +33,9 @@ Needed for this program to be usable:
 * Use proper names for lectures. Load the lecture names from the lecture file, as specified in the stats file.
   Also, accept a search path where to look for lecture files if it is not available in the exact location
   specified by the lecture file.
-* Use the verb "completed" if the accuracy is above 98% and if the number of typed chars are greater than 300, otherwise
-  "attempted". The 98% figure should as well as the 300 figure should be configurable by a command line / config option.
+* Use the verb "completed" if the accuracy is above 98% and if the number of typed chars are greater than 300,
+  otherwise use "attempted". The 98% figure as well as the 300 figure should be configurable by a command line /
+  config option.
   Also, let this affect both the "successful" and "completed" flags.
 * Save the chars per minute as score.
 

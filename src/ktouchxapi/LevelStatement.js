@@ -23,16 +23,28 @@ LevelStatement.prototype.getXApiStatement = function() {
 	if (!this.kTouchUser)
 		throw new Error("no user!");
 
+	var verbId;
+
+	if (this.isComplete())
+		verbId = "http://adlnet.gov/expapi/verbs/completed"
+
+	else
+		verbId = "http://adlnet.gov/expapi/verbs/attempted"
+
 	var statement = {
 		timestamp: this.levelStats.getTimestamp(),
 		actor: {
 			mbox: this.kTouchUser.getActorEmail()
 		},
 		verb: {
-			id: "http://adlnet.gov/expapi/verbs/experienced"
+			id: verbId
 		},
 		target: {
 			id: this.getTargetUrl()
+		},
+		result: {
+			completion: this.isComplete(),
+			success: this.isComplete()
 		}
 	};
 
@@ -76,6 +88,28 @@ LevelStatement.prototype.sync = function(tinCan) {
 	var thenable = tinCanSync.syncStatement(statement)
 
 	return thenable;
+}
+
+/**
+ * Get correctness percentage.
+ * @method getCorrectPercentage
+ */
+LevelStatement.prototype.getCorrectPercentage = function() {
+	return 100 * this.levelStats.getCorrects() / this.levelStats.getChars();
+}
+
+/**
+ * Is this complete?
+ * @method isComplete
+ */
+LevelStatement.prototype.isComplete = function() {
+	if (this.getCorrectPercentage() < this.kTouchUser.getApp().getCompletionPercentage())
+		return false;
+
+	if (this.levelStats.getChars() < this.kTouchUser.getApp().getCompletionChars())
+		return false;
+
+	return true;
 }
 
 module.exports = LevelStatement;

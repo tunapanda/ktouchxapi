@@ -11,6 +11,14 @@ describe("LevelStatement", function() {
 			return "http://www.ktouch.org/";
 		}
 
+		mockApp.getCompletionPercentage = function() {
+			return 98;
+		}
+
+		mockApp.getCompletionChars = function() {
+			return 300;
+		}
+
 		mockKTouchUser = {};
 		mockKTouchUser.getActorEmail = function() {
 			return "hello@world.com";
@@ -43,6 +51,22 @@ describe("LevelStatement", function() {
 
 			console.log("url: " + levelStatement.getTargetUrl());
 		}
+
+		//level.getXApiStatement();
+	});
+
+	it("can check completion", function() {
+		var statsFile = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
+		var levelStatement
+
+		levelStatement = new LevelStatement(statsFile.getLevelStats()[2], mockKTouchUser);
+		expect(levelStatement.getCorrectPercentage()).toBe(100);
+		expect(levelStatement.isComplete()).toBe(true);
+
+		levelStatement = new LevelStatement(statsFile.getLevelStats()[3], mockKTouchUser);
+		expect(levelStatement.getCorrectPercentage()).toBeLessThan(100);
+		expect(levelStatement.getCorrectPercentage()).toBeGreaterThan(95);
+		expect(levelStatement.isComplete()).toBe(false);
 
 		//level.getXApiStatement();
 	});
@@ -94,6 +118,14 @@ describe("LevelStatement", function() {
 			return "1234";
 		}
 
+		mockStats.getCorrects = function() {
+			return 100;
+		}
+
+		mockStats.getChars = function() {
+			return 100;
+		}
+
 		var levelStatement = new LevelStatement(mockStats, mockKTouchUser);
 
 		var mockTinCan = {};
@@ -109,7 +141,7 @@ describe("LevelStatement", function() {
 			return false;
 		};
 
-		mockApp.getFilterFunctions=function() {
+		mockApp.getFilterFunctions = function() {
 			return [filter];
 		}
 

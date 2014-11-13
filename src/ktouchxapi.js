@@ -27,6 +27,12 @@ function usage() {
 	console.log("                                xAPI statements.");
 	console.log("    --filter=<filter, ...>    - Comma separated list of filters.")
 	console.log("                                Available filters: nofuture");
+	console.log("    --completionPercentage=#  - Specify correctness percentage for a level to");
+	console.log("                                be considered complete and successful.");
+	console.log("                                Default is 98");
+	console.log("    --completionChars=#       - Specify number of characters required to be");
+	console.log("                                typed on a level for it to be considered");
+	console.log("                                complete and successful. Default is 300.");
 	console.log();
 
 	process.exit(1);
@@ -87,6 +93,11 @@ if (config["filter"]) {
 	}
 }
 
+if (config["completionChars"])
+	kTouchStats.setCompletionChars(config["completionChars"]);
+
+if (config["completionPercentage"])
+	kTouchStats.setCompletionPercentage(config["completionPercentage"]);
 
 kTouchStats.run().then(
 	function() {},

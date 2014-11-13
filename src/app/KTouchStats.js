@@ -27,6 +27,40 @@ function KTouchStats() {
 	this.defaultVerbPrefix = "http://www.example.com/";
 	this.passwd = null;
 	this.filterFunctions = [];
+	this.completionPercentage = 98;
+	this.completionChars = 300;
+}
+
+/**
+ * Get completion chars.
+ * @method getCompletionChars
+ */
+KTouchStats.prototype.getCompletionChars = function() {
+	return this.completionChars;
+}
+
+/**
+ * Set completion chars.
+ * @method setCompletionChars
+ */
+KTouchStats.prototype.setCompletionChars = function(value) {
+	this.completionChars = value;
+}
+
+/**
+ * Get completion percentage.
+ * @method getCompletionPercentage
+ */
+KTouchStats.prototype.getCompletionPercentage = function() {
+	return this.completionPercentage;
+}
+
+/**
+ * Set completion percentage.
+ * @method setCompletionPercentage
+ */
+KTouchStats.prototype.setCompletionPercentage = function(value) {
+	this.completionPercentage = value;
 }
 
 /**

@@ -37,6 +37,12 @@ describe("KTouchUser", function() {
 		mockApp.getFilterFunctions = function() {
 			return [];
 		}
+		mockApp.getCompletionPercentage = function() {
+			return 98;
+		}
+		mockApp.getCompletionChars = function() {
+			return 300;
+		}
 
 		var statsFile = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
 		var kTouchUser = new KTouchUser("alice", statsFile, mockApp);

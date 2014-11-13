@@ -1,6 +1,6 @@
 {
   "name": "ktouchxapi",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Translate KTouch statistics to xAPI statements.",
   "repository": {
     "type": "git",

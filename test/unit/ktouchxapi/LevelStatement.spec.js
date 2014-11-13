@@ -57,17 +57,22 @@ describe("LevelStatement", function() {
 
 	it("can check completion", function() {
 		var statsFile = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
-		var levelStatement
+		var levelStatement;
 
 		levelStatement = new LevelStatement(statsFile.getLevelStats()[2], mockKTouchUser);
 		expect(levelStatement.getCorrectPercentage()).toBe(100);
 		expect(levelStatement.isComplete()).toBe(true);
+		expect(levelStatement.getScore()).toBe(225);
+
+		var xApiStatement = levelStatement.getXApiStatement();
+		expect(xApiStatement.result.score.raw).toBe(225);
 
 		levelStatement = new LevelStatement(statsFile.getLevelStats()[3], mockKTouchUser);
 		expect(levelStatement.getCorrectPercentage()).toBeLessThan(100);
 		expect(levelStatement.getCorrectPercentage()).toBeGreaterThan(95);
 		expect(levelStatement.isComplete()).toBe(false);
 
+		//console.log("score: "+levelStatement.getScore())
 		//level.getXApiStatement();
 	});
 

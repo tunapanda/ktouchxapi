@@ -16,7 +16,7 @@ KTouchLevelStats.prototype.getNumber = function() {
 }
 
 /**
- * Get duration.
+ * Get duration. In seconds.
  * @method getDurationTime
  */
 KTouchLevelStats.prototype.getDurationTime = function() {

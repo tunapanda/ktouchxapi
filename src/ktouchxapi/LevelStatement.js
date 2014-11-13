@@ -44,7 +44,10 @@ LevelStatement.prototype.getXApiStatement = function() {
 		},
 		result: {
 			completion: this.isComplete(),
-			success: this.isComplete()
+			success: this.isComplete(),
+			score: {
+				raw: this.getScore()
+			}
 		}
 	};
 
@@ -110,6 +113,17 @@ LevelStatement.prototype.isComplete = function() {
 		return false;
 
 	return true;
+}
+
+/**
+ * Get score. This is chars per minute.
+ * @method getScore
+ */
+LevelStatement.prototype.getScore = function() {
+	if (!this.isComplete())
+		return 0;
+
+	return Math.round(60 * this.levelStats.getChars() / this.levelStats.getDurationTime());
 }
 
 module.exports = LevelStatement;

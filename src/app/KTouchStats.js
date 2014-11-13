@@ -275,6 +275,7 @@ KTouchStats.prototype.generateCsv = function() {
  */
 KTouchStats.prototype.syncNextUser = function() {
 	if (this.userSyncIndex >= this.kTouchUsers.length) {
+		console.log("Sync done!");
 		this.runThenable.notifySuccess();
 		return;
 	}

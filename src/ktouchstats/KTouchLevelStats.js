@@ -39,4 +39,20 @@ KTouchLevelStats.prototype.getLecture = function() {
 	return this.lecture;
 }
 
+/**
+ * Get corrects.
+ * @method getCorrects
+ */
+KTouchLevelStats.prototype.getCorrects = function() {
+	return parseInt(this.data.attr.Corrects);
+}
+
+/**
+ * Get chars.
+ * @method getChars
+ */
+KTouchLevelStats.prototype.getChars = function() {
+	return parseInt(this.data.attr.Chars);
+}
+
 module.exports = KTouchLevelStats;

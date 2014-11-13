@@ -46,3 +46,18 @@ Currently, the program takes a bit of time to run, and the only way to get it to
 the xAPI LRS would be to run it on a cron nightly. It would be really nice if it could run as a daemon
 and monitor the statistics files for changes. This could be done for example using
 [inotify](https://www.npmjs.org/package/inotify).
+
+Hacking
+-------
+
+In order to set up an anvironment for local development, clone the repo and `cd` into it, then do:
+
+````
+npm install
+````
+
+We are using a test driven approach. In order to run the tests after setup, do:
+
+````
+grunt test
+````

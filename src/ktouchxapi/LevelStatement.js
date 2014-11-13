@@ -13,56 +13,7 @@ function LevelStatement(levelStats, kTouchUser) {
 
 	this.levelStats = levelStats;
 	this.kTouchUser = kTouchUser;
-
-	/*	this.actorEmail = null;
-	this.defaultVerbPrefix = "http://www.example.com/"
-	this.name = null;
-	this.filterFuntions = [];
-
-	//	if (actorEmail)
-	this.actorEmail = null;*/
 }
-
-/**
- * Add a filter function.
- * @method addFilterFunction
- */
-/*LevelStatement.prototype.addFilterFunction = function(f) {
-	this.filterFuntions.push(f);
-}*/
-
-/**
- * Add several filter functions.
- * @method addFilterFunctions
- */
-/*LevelStatement.prototype.addFilterFunctions = function(f) {
-	this.filterFuntions = this.filterFuntions.concat(f);
-}*/
-
-/**
- * Set actor email.
- * @method setActorEmail
- */
-/*LevelStatement.prototype.setActorEmail = function(actorEmail) {
-	this.actorEmail = actorEmail;
-}*/
-
-/**
- * Set name for user.
- * @method setName
- */
-/*LevelStatement.prototype.setName = function(name) {
-	this.name = name;
-}*/
-
-/**
- * Set prefix to use for verbs in case the lecture is not
- * a proper url.
- * @method setDefaultVerbPrefix
- */
-/*LevelStatement.prototype.setDefaultVerbPrefix = function(value) {
-	this.defaultVerbPrefix = value;
-}*/
 
 /**
  * Get corresponding xapi statement.
@@ -111,7 +62,6 @@ LevelStatement.prototype.getTargetUrl = function() {
  */
 LevelStatement.prototype.sync = function(tinCan) {
 	var statement = this.getXApiStatement();
-
 	var filterFuntions = this.kTouchUser.getApp().getFilterFunctions();
 
 	for (var i = 0; i < filterFuntions.length; i++) {
@@ -124,8 +74,6 @@ LevelStatement.prototype.sync = function(tinCan) {
 
 	var tinCanSync = new TinCanSync(tinCan);
 	var thenable = tinCanSync.syncStatement(statement)
-
-	//console.log("thenable: " + thenable);
 
 	return thenable;
 }

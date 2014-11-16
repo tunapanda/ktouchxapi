@@ -131,5 +131,16 @@ describe("KTouchStats", function() {
 		var lecture = ktouchstats.getLectureByUrl(exactFileUrl);
 
 		expect(lecture.getName()).toBe("The title of the lecture");
+	});
+
+	it("can get a lecture name by url, by using a search path and just the file name from the url", function() {
+		var fileUrl = "file:///originally/somewhere/else/testlecture.xml";
+
+		var ktouchstats = new KTouchStats();
+		ktouchstats.setLecturePath(__dirname + "/../res/")
+		var lecture = ktouchstats.getLectureByUrl(fileUrl);
+
+		expect(lecture.getName()).toBe("The title of the lecture");
 	})
+
 });

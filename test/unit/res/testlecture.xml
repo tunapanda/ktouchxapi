@@ -1,0 +1,14 @@
+<KTouchLecture>
+  <Title>The title of the lecture</Title>
+  <Comment>The comment of the lecture</Comment>
+  <FontSuggestions>Monospace</FontSuggestions>
+  <Levels>
+    <Level>
+      <LevelComment>A comment for the level</LevelComment>
+      <NewCharacters>The new characters of the level</NewCharacters>
+      <Line>A line of text that will appear in KTouch</Line>
+      <Line>Another line of text that will appaer in KTouch</Line>
+      <Line>One last line that will appear in KTouch</Line>
+    </Level>
+  </Levels>
+</KtouchLecture>

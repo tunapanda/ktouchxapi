@@ -123,4 +123,13 @@ describe("KTouchStats", function() {
 			}
 		);
 	});
+
+	it("can get a lecture name by url, if the file exists in the exact location", function() {
+		var exactFileUrl = "file://" + __dirname + "/../res/testlecture.xml";
+
+		var ktouchstats = new KTouchStats();
+		var lecture = ktouchstats.getLectureByUrl(exactFileUrl);
+
+		expect(lecture.getName()).toBe("The title of the lecture");
+	})
 });

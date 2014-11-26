@@ -28,7 +28,7 @@ This program requires node 0.10 or higher. If you use linux, see upgrade instruc
 Hacking
 -------
 
-We are listing the stuff we need to to as [https://github.com/tunapanda/ktouchxapi/issues](issues).
+We are listing the stuff we need to to as [issues](https://github.com/tunapanda/ktouchxapi/issues).
 
 Take a look and see if there is something you want to help out with!
 

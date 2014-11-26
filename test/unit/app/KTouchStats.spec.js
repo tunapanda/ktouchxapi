@@ -141,5 +141,5 @@ describe("KTouchStats", function() {
 		var lecture = ktouchstats.getLectureByUrl(fileUrl);
 
 		expect(lecture.getName()).toBe("The title of the lecture");
-	}); */
+	});*/
 });

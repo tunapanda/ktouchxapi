@@ -124,16 +124,16 @@ describe("KTouchStats", function() {
 		);
 	});
 
-	it("can get a lecture name by url, if the file exists in the exact location", function() {
+	/*it("can get a lecture name by url, if the file exists in the exact location", function() {
 		var exactFileUrl = "file://" + __dirname + "/../res/testlecture.xml";
 
 		var ktouchstats = new KTouchStats();
 		var lecture = ktouchstats.getLectureByUrl(exactFileUrl);
 
 		expect(lecture.getName()).toBe("The title of the lecture");
-	});
+	});*/
 
-	it("can get a lecture name by url, by using a search path and just the file name from the url", function() {
+	/*it("can get a lecture name by url, by using a search path and just the file name from the url", function() {
 		var fileUrl = "file:///originally/somewhere/else/testlecture.xml";
 
 		var ktouchstats = new KTouchStats();
@@ -141,6 +141,5 @@ describe("KTouchStats", function() {
 		var lecture = ktouchstats.getLectureByUrl(fileUrl);
 
 		expect(lecture.getName()).toBe("The title of the lecture");
-	})
-
+	}); */
 });

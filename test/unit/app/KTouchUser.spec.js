@@ -28,8 +28,11 @@ describe("KTouchUser", function() {
 		mockApp.getActorDomain = function() {
 			return "hello.com";
 		}
-		mockApp.getDefaultVerbPrefix = function() {
+		mockApp.getTargetPrefix = function() {
 			return "http://example.com/";
+		}
+		mockApp.getUseFullTargetPath = function() {
+			return false;
 		}
 		mockApp.getPasswd = function() {
 			return passwd;

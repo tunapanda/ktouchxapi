@@ -24,7 +24,8 @@ function KTouchStats() {
 	this.tinCan = null;
 	this.actorDomain = "example.com";
 	this.userSyncIndex = 0;
-	this.defaultVerbPrefix = "http://www.example.com/";
+	this.targetPrefix = "http://www.example.com/";
+	this.useFullTargetPath = false;
 	this.passwd = null;
 	this.filterFunctions = [];
 	this.completionPercentage = 98;
@@ -160,19 +161,35 @@ KTouchStats.prototype.setXApiPassword = function(value) {
 }
 
 /**
- * Set default verb prefix.
- * @method setDefaultVerbPrefix
+ * Set target prefix.
+ * @method setTargetPrefix
  */
-KTouchStats.prototype.setDefaultVerbPrefix = function(value) {
-	this.defaultVerbPrefix = value;
+KTouchStats.prototype.setTargetPrefix = function(value) {
+	this.targetPrefix = value;
 }
 
 /**
- * Get default verb prefix.
- * @method getDefaultVerbPrefix
+ * Get target prefix.
+ * @method getTargetPrefix
  */
-KTouchStats.prototype.getDefaultVerbPrefix = function() {
-	return this.defaultVerbPrefix;
+KTouchStats.prototype.getTargetPrefix = function() {
+	return this.targetPrefix;
+}
+
+/**
+ * Use full target paths.
+ * @method setUseFullTargetPaths
+ */
+KTouchStats.prototype.setUseFullTargetPath = function(value) {
+	this.useFullTargetPath = value;
+}
+
+/**
+ * Should full target paths be used?
+ * @method getUseFullTargetPaths
+ */
+KTouchStats.prototype.getUseFullTargetPath = function() {
+	return this.useFullTargetPath;
 }
 
 /**

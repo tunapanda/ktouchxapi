@@ -7,8 +7,12 @@ describe("LevelStatement", function() {
 
 	beforeEach(function() {
 		mockApp = {};
-		mockApp.getDefaultVerbPrefix = function() {
+		mockApp.getTargetPrefix = function() {
 			return "http://www.ktouch.org/";
+		}
+
+		mockApp.getUseFullTargetPath = function() {
+			return false;
 		}
 
 		mockApp.getCompletionPercentage = function() {
@@ -49,7 +53,7 @@ describe("LevelStatement", function() {
 			var levelStats = statsFile.getLevelStats()[i];
 			var levelStatement = new LevelStatement(levelStats, mockKTouchUser);
 
-			console.log("url: " + levelStatement.getTargetUrl());
+			//console.log("url: " + levelStatement.getTargetUrl());
 		}
 
 		//level.getXApiStatement();
@@ -76,7 +80,7 @@ describe("LevelStatement", function() {
 		//level.getXApiStatement();
 	});
 
-	it("can generate a proper url if the lecture doesn't have one", function() {
+	it("can generate a target url", function() {
 		var mockLecture = {};
 		mockLecture.getUrl = function() {
 			return "default";
@@ -93,15 +97,21 @@ describe("LevelStatement", function() {
 
 		var levelStatement = new LevelStatement(mockStats, mockKTouchUser);
 
-		console.log("url: " + levelStatement.getTargetUrl());
+		//console.log("url: " + levelStatement.getTargetUrl());
 		expect(levelStatement.getTargetUrl()).toBe("http://www.ktouch.org/default#1");
 
 		mockLecture.getUrl = function() {
-			return "http://hello.com/world";
+			return "http://hello.com/world/test";
 		}
 
-		console.log("url: " + levelStatement.getTargetUrl());
-		expect(levelStatement.getTargetUrl()).toBe("http://hello.com/world#1");
+		//console.log("url: " + levelStatement.getTargetUrl());
+		expect(levelStatement.getTargetUrl()).toBe("http://www.ktouch.org/test#1");
+
+		mockApp.getUseFullTargetPath = function() {
+			return true;
+		}
+
+		expect(levelStatement.getTargetUrl()).toBe("http://www.ktouch.org/world/test#1");
 	});
 
 	it("can have a filter do decide if the statement should be inserted", function(done) {

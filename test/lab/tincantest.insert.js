@@ -2,9 +2,9 @@ var TinCan = require("tincanjs");
 
 var tincan = new TinCan({
 	recordStores: [{
-		endpoint: "http://localhost/repo/learninglocker/public/data/xAPI/",
-		username: "b47fc60e6d92b4fa5497b7c38bcb2b98606fa5ae",
-		password: "a6485b033734f630f9af5a9ac732ec10db5d92b7",
+		endpoint: "http://staging.tunapanda.org/learninglocker/public/data/xAPI/",
+		username: "9088f1e9f7c149e72fc76553d5c3c12cfaa5c22c",
+		password: "74b2a7150e840ff9f2b7c4fd2617edaa1f6ab770",
 		allowFail: false
 	}]
 });
@@ -16,10 +16,10 @@ tincan.sendStatement({
 		name: "Some Random Dude"
 	},
 	verb: {
-		id: "http://adlnet.gov/expapi/verbs/attempted"
+		id: "http://adlnet.gov/expapi/verbs/completed"
 	},
 	target: {
-		id: "http://tunapanda.org/ktouch/1"
+		id: "http://tunapanda.org/ktouch/2"
 	}
 }, function(a, b) {
 	console.log("here, a="+a+", b="+b);

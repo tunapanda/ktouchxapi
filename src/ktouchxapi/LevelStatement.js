@@ -64,11 +64,19 @@ LevelStatement.prototype.getXApiStatement = function() {
 LevelStatement.prototype.getTargetUrl = function() {
 	var targetUrl = this.levelStats.getLecture().getUrl();
 	var parsedUrl = url.parse(targetUrl);
+	var path = parsedUrl.path;
 
-	if (!parsedUrl.protocol)
-		targetUrl = this.kTouchUser.getApp().getDefaultVerbPrefix() + targetUrl;
+	if (!this.kTouchUser.getApp().getUseFullTargetPath()) {
+		if (path.lastIndexOf("/") >= 0)
+			path = path.substr(path.lastIndexOf("/") + 1);
+	}
 
-	return targetUrl + "#" + this.levelStats.getNumber();
+	if (path.substr(0, 1) == "/")
+		path = path.substr(1);
+
+	reportUrl = this.kTouchUser.getApp().getTargetPrefix() + path;
+
+	return reportUrl + "#" + this.levelStats.getNumber();
 }
 
 /**

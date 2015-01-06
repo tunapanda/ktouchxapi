@@ -20,8 +20,9 @@ function usage() {
 	console.log("    --xapiPassword=<pw>       - Specify xApi password.");
 	console.log("    --actorDomain=<domain>    - Records for xApi will be saved as ");
 	console.log("                                username@domain.");
-	console.log("    --defaultVerbPrefix=<pfx> - Prefix to use for verbs in case the statistics");
-	console.log("                                file does not provide a proper url.");
+	console.log("    --targetPrefix=<pfx>      - Prefix to prepend to filenames in the stats");
+	console.log("                                file to form target URIs.");
+	console.log("    --useFullTargetPath       - Use full paths when forming target URIs.")
 	console.log("    --passwd=<filename>       - Use information in this file, e.g. /etc/passwd,");
 	console.log("                                to map usernames to full names for");
 	console.log("                                xAPI statements.");
@@ -76,8 +77,11 @@ if (config["xapiPassword"])
 if (config["actorDomain"])
 	kTouchStats.setActorDomain(config["actorDomain"]);
 
-if (config["defaultVerbPrefix"])
-	kTouchStats.setDefaultVerbPrefix(config["defaultVerbPrefix"]);
+if (config["targetPrefix"])
+	kTouchStats.setTargetPrefix(config["targetPrefix"]);
+
+if (config["useFullTargetPath"])
+	kTouchStats.setUseFullTargetPath(true);
 
 if (config["passwd"])
 	kTouchStats.setPasswdFileName(config["passwd"]);

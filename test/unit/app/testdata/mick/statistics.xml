@@ -1,0 +1,204 @@
+<KTouchStatisticsData>
+ <KTouchStatistics>
+  <User>Default User</User>
+  <LectureStats>
+   <URL>default</URL>
+   <Title>A default lecture...</Title>
+   <AllLevelStats/>
+   <AllSessionStats/>
+  </LectureStats>
+  <LectureStats>
+   <URL>file:///usr/share/kde4/apps/ktouch/Lecture/English/TunapandaEn.ktouch.xml</URL>
+   <Title>Tunapanda (English)</Title>
+   <AllLevelStats>
+    <LevelStats Corrects="141" Words="29" Number="0" Chars="143" Time="30.5">
+     <Time>2014-09-01T09:07:20</Time>
+     <CharStats> 97 14 0 115 14 0 100 14 0 102 20 0 59 12 0 108 12 2 107 12 0 106 16 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="24" Words="4" Number="1" Chars="26" Time="14">
+     <Time>2014-09-01T09:07:34</Time>
+     <CharStats> 97 3 1 115 3 0 100 3 0 102 3 0 59 2 0 108 2 0 107 2 0 106 2 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="256" Words="89" Number="1" Chars="258" Time="60.5">
+     <Time>2014-11-02T09:30:27</Time>
+     <CharStats> 97 61 0 115 14 2 100 14 0 102 14 0 59 53 0 108 12 0 107 12 0 106 12 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="266" Words="48" Number="2" Chars="278" Time="29372.5">
+     <Time>2014-11-02T17:39:59</Time>
+     <CharStats> 97 31 2 115 52 0 100 13 0 102 16 0 103 13 2 104 12 1 106 14 2 107 12 1 108 44 2 59 15 2</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="266" Words="48" Number="2" Chars="278" Time="29372.5">
+     <Time>2014-11-02T17:39:59</Time>
+     <CharStats> 97 31 2 115 52 0 100 13 0 102 16 0 103 13 2 104 12 1 106 14 2 107 12 1 108 44 2 59 15 2</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="287" Words="93" Number="7" Chars="298" Time="62.5">
+     <Time>2015-01-07T16:23:53</Time>
+     <CharStats> 73 4 0 110 28 1 105 11 0 116 30 2 111 48 2 46 14 3 78 4 0 97 20 0 100 14 0 104 8 0 103 8 0 115 4 0 108 6 0 101 2 0 102 4 0 68 2 0 74 4 0 107 4 2</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="0" Words="0" Number="8" Chars="0" Time="2.5">
+     <Time>2015-01-07T16:23:55</Time>
+     <CharStats></CharStats>
+    </LevelStats>
+   </AllLevelStats>
+   <AllSessionStats>
+    <SessionStats Corrects="165" Words="33" Chars="169" Time="44.5">
+     <Time>2014-09-01T09:07:34</Time>
+     <LevelNums> 0 1</LevelNums>
+     <CharStats> 97 17 1 115 17 0 100 17 0 102 23 0 59 14 0 108 14 2 107 14 0 106 18 0</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="522" Words="137" Chars="536" Time="29433">
+     <Time>2014-11-02T17:39:59</Time>
+     <LevelNums> 1 2</LevelNums>
+     <CharStats> 97 92 2 115 66 2 100 27 0 102 30 0 59 68 2 108 56 2 107 24 1 106 26 2 103 13 2 104 12 1</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="522" Words="137" Chars="536" Time="29433">
+     <Time>2014-11-02T17:39:59</Time>
+     <LevelNums> 1 2</LevelNums>
+     <CharStats> 97 92 2 115 66 2 100 27 0 102 30 0 59 68 2 108 56 2 107 24 1 106 26 2 103 13 2 104 12 1</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="287" Words="93" Chars="298" Time="65">
+     <Time>2015-01-07T16:23:55</Time>
+     <LevelNums> 2 3 4 5 6 7 8</LevelNums>
+     <CharStats> 73 4 0 110 28 1 105 11 0 116 30 2 111 48 2 46 14 3 78 4 0 97 20 0 100 14 0 104 8 0 103 8 0 115 4 0 108 6 0 101 2 0 102 4 0 68 2 0 74 4 0 107 4 2</CharStats>
+    </SessionStats>
+   </AllSessionStats>
+  </LectureStats>
+  <LectureStats>
+   <URL>file:///usr/share/kde4/apps/ktouch/Lecture/English/en.ktouch.xml</URL>
+   <Title>English (auto-generated)</Title>
+   <AllLevelStats>
+    <LevelStats Corrects="70" Words="14" Number="4" Chars="71" Time="11">
+     <Time>2014-08-29T10:46:37</Time>
+     <CharStats> 115 6 0 110 11 0 97 15 0 102 6 0 108 2 0 100 2 0 116 7 0 99 5 1 107 3 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="2" Words="0" Number="4" Chars="3" Time="13">
+     <Time>2014-08-29T13:29:06</Time>
+     <CharStats> 115 1 0 110 1 0 97 0 1</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="0" Words="0" Number="5" Chars="0" Time="1.5">
+     <Time>2014-08-29T13:29:07</Time>
+     <CharStats></CharStats>
+    </LevelStats>
+    <LevelStats Corrects="19" Words="2" Number="6" Chars="23" Time="103">
+     <Time>2014-08-29T13:30:52</Time>
+     <CharStats> 100 4 0 105 4 0 118 1 2 101 2 1 110 1 0 108 2 0 116 1 0 115 1 1 97 1 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="65" Words="8" Number="7" Chars="66" Time="10.5">
+     <Time>2014-08-29T14:08:23</Time>
+     <CharStats> 100 3 0 97 7 0 114 7 0 101 9 0 116 7 0 115 1 0 105 8 0 102 5 1 99 3 0 109 1 0 110 5 0 107 1 0 104 1 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="359" Words="57" Number="7" Chars="381" Time="133">
+     <Time>2014-08-31T13:45:22</Time>
+     <CharStats> 100 18 2 97 34 1 114 45 2 101 41 0 116 34 1 115 19 3 105 41 4 102 9 2 99 20 2 109 5 0 110 22 1 107 5 0 104 12 3 118 2 0 108 10 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="158" Words="16" Number="8" Chars="166" Time="62">
+     <Time>2014-08-31T13:46:24</Time>
+     <CharStats> 111 19 1 118 3 1 101 13 0 114 11 0 99 6 0 107 2 0 116 13 1 97 10 0 109 8 2 105 15 2 110 12 0 102 4 0 103 7 1 115 7 0 100 4 0 108 6 0 104 1 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="703" Words="101" Number="6" Chars="729" Time="316.5">
+     <Time>2014-08-31T13:51:41</Time>
+     <CharStats> 100 33 1 105 89 1 118 20 1 101 115 4 110 57 4 108 41 2 116 65 4 115 63 2 97 54 2 99 27 0 109 32 1 107 8 1 102 15 1 106 2 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="360" Words="57" Number="7" Chars="387" Time="112">
+     <Time>2014-08-31T13:53:32</Time>
+     <CharStats> 100 18 1 97 34 5 114 45 1 101 41 2 116 34 2 115 19 3 105 41 1 102 9 2 99 20 1 109 5 0 110 22 2 107 5 0 104 12 2 118 2 0 108 10 1</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="218" Words="25" Number="8" Chars="235" Time="164">
+     <Time>2014-08-31T13:56:19</Time>
+     <CharStats> 111 24 2 118 2 0 101 15 2 114 12 3 99 10 0 107 2 0 116 18 1 97 15 0 109 12 3 105 24 1 110 17 1 102 5 0 103 11 1 115 9 2 100 6 0 108 12 1 104 2 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="273" Words="41" Number="8" Chars="285" Time="69.5">
+     <Time>2014-08-31T13:57:31</Time>
+     <CharStats> 111 32 3 118 2 1 101 17 0 114 14 0 99 14 1 107 3 0 116 22 2 97 21 0 109 15 0 105 30 0 110 24 2 102 5 0 103 13 0 115 9 0 100 7 1 108 14 0 104 2 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="206" Words="18" Number="9" Chars="220" Time="1362.5">
+     <Time>2014-08-31T14:20:15</Time>
+     <CharStats> 97 23 2 114 19 2 99 6 0 104 3 0 98 12 0 105 17 2 115 14 1 111 14 0 112 17 4 108 7 1 109 3 0 101 19 1 110 9 0 116 11 0 118 2 0 100 6 0 103 1 0 107 2 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="39" Words="4" Number="9" Chars="44" Time="19.5">
+     <Time>2014-08-31T14:20:36</Time>
+     <CharStats> 97 5 3 114 4 1 99 2 0 104 2 0 98 2 0 105 3 1 115 2 0 111 1 0 112 3 0 108 3 0 109 1 0 101 4 0 110 1 0 116 2 0</CharStats>
+    </LevelStats>
+   </AllLevelStats>
+   <AllSessionStats>
+    <SessionStats Corrects="70" Words="14" Chars="71" Time="11">
+     <Time>2014-08-29T10:46:37</Time>
+     <LevelNums> 0 1 2 3 4</LevelNums>
+     <CharStats> 115 6 0 110 11 0 97 15 0 102 6 0 108 2 0 100 2 0 116 7 0 99 5 1 107 3 0</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="21" Words="2" Chars="26" Time="117.5">
+     <Time>2014-08-29T13:30:52</Time>
+     <LevelNums> 4 5 6</LevelNums>
+     <CharStats> 115 2 1 110 2 0 97 1 1 100 4 0 105 4 0 118 1 2 101 2 1 108 2 0 116 1 0</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="65" Words="8" Chars="66" Time="10.5">
+     <Time>2014-08-29T14:08:23</Time>
+     <LevelNums> 0 1 2 3 4 5 6 7</LevelNums>
+     <CharStats> 100 3 0 97 7 0 114 7 0 101 9 0 116 7 0 115 1 0 105 8 0 102 5 1 99 3 0 109 1 0 110 5 0 107 1 0 104 1 0</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="1798" Words="256" Chars="1898" Time="787.5">
+     <Time>2014-08-31T13:56:19</Time>
+     <LevelNums> 6 7 8</LevelNums>
+     <CharStats> 100 79 4 97 147 8 114 113 6 101 225 8 116 164 9 115 117 10 105 210 9 102 42 5 99 83 3 109 62 6 110 130 8 107 22 1 104 27 5 118 29 2 108 79 4 111 43 3 103 18 2 106 2 0</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="479" Words="59" Chars="505" Time="1432">
+     <Time>2014-08-31T14:20:15</Time>
+     <LevelNums> 8 9</LevelNums>
+     <CharStats> 111 46 3 118 4 1 101 36 1 114 33 2 99 20 1 107 5 0 116 33 2 97 44 2 109 18 0 105 47 2 110 33 2 102 5 0 103 14 0 115 23 1 100 13 1 108 21 1 104 5 0 98 12 0 112 17 4</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="39" Words="4" Chars="44" Time="19.5">
+     <Time>2014-08-31T14:20:36</Time>
+     <LevelNums> 9</LevelNums>
+     <CharStats> 97 5 3 114 4 1 99 2 0 104 2 0 98 2 0 105 3 1 115 2 0 111 1 0 112 3 0 108 3 0 109 1 0 101 4 0 110 1 0 116 2 0</CharStats>
+    </SessionStats>
+   </AllSessionStats>
+  </LectureStats>
+  <LectureStats>
+   <URL>file:///usr/share/kde4/apps/ktouch/Lecture/English/tunapanda.ktouch.xml</URL>
+   <Title>Tunapanda (English)</Title>
+   <AllLevelStats>
+    <LevelStats Corrects="256" Words="86" Number="0" Chars="262" Time="64.5">
+     <Time>2015-01-08T17:09:37</Time>
+     <CharStats> 97 14 2 115 14 0 100 14 0 102 69 2 59 12 1 108 12 0 107 12 0 106 47 1</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="0" Words="0" Number="1" Chars="0" Time="6.5">
+     <Time>2015-01-08T17:09:43</Time>
+     <CharStats></CharStats>
+    </LevelStats>
+    <LevelStats Corrects="256" Words="86" Number="0" Chars="259" Time="59">
+     <Time>2015-01-08T20:20:22</Time>
+     <CharStats> 97 14 1 115 14 1 100 14 0 102 69 0 59 12 0 108 12 0 107 12 0 106 47 1</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="256" Words="89" Number="1" Chars="257" Time="56">
+     <Time>2015-01-08T20:21:18</Time>
+     <CharStats> 97 61 0 115 14 0 100 14 0 102 14 0 59 53 1 108 12 0 107 12 0 106 12 0</CharStats>
+    </LevelStats>
+    <LevelStats Corrects="0" Words="0" Number="2" Chars="0" Time="2120">
+     <Time>2015-01-08T20:56:38</Time>
+     <CharStats></CharStats>
+    </LevelStats>
+    <LevelStats Corrects="0" Words="0" Number="2" Chars="0" Time="2120">
+     <Time>2015-01-08T20:56:38</Time>
+     <CharStats></CharStats>
+    </LevelStats>
+   </AllLevelStats>
+   <AllSessionStats>
+    <SessionStats Corrects="256" Words="86" Chars="262" Time="71">
+     <Time>2015-01-08T17:09:43</Time>
+     <LevelNums> 0 1</LevelNums>
+     <CharStats> 97 14 2 115 14 0 100 14 0 102 69 2 59 12 1 108 12 0 107 12 0 106 47 1</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="512" Words="175" Chars="516" Time="2235">
+     <Time>2015-01-08T20:56:38</Time>
+     <LevelNums> 0 1 2</LevelNums>
+     <CharStats> 97 75 1 115 28 1 100 28 0 102 83 0 59 65 1 108 24 0 107 24 0 106 59 1</CharStats>
+    </SessionStats>
+    <SessionStats Corrects="512" Words="175" Chars="516" Time="2235">
+     <Time>2015-01-08T20:56:38</Time>
+     <LevelNums> 0 1 2</LevelNums>
+     <CharStats> 97 75 1 115 28 1 100 28 0 102 83 0 59 65 1 108 24 0 107 24 0 106 59 1</CharStats>
+    </SessionStats>
+   </AllSessionStats>
+  </LectureStats>
+ </KTouchStatistics>
+</KTouchStatisticsData>

@@ -31,9 +31,9 @@ function usage() {
 	console.log("    --completionPercentage=#  - Specify correctness percentage for a level to");
 	console.log("                                be considered complete and successful.");
 	console.log("                                Default is 98");
-	console.log("    --completionChars=#       - Specify number of characters required to be");
-	console.log("                                typed on a level for it to be considered");
-	console.log("                                complete and successful. Default is 300.");
+	console.log("    --lecturePath=<path>      - Additional path where to search for lecture");
+	console.log("                                files except for the full path specified in ");
+	console.log("                                the lecture url.");
 	console.log();
 
 	process.exit(1);
@@ -97,11 +97,11 @@ if (config["filter"]) {
 	}
 }
 
-if (config["completionChars"])
-	kTouchStats.setCompletionChars(config["completionChars"]);
-
 if (config["completionPercentage"])
 	kTouchStats.setCompletionPercentage(config["completionPercentage"]);
+
+if (config["lecturePath"])
+	kTouchStats.setLecturePath(config["lecturePath"]);
 
 kTouchStats.run().then(
 	function() {},

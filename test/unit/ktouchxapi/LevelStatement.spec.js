@@ -6,6 +6,20 @@ describe("LevelStatement", function() {
 	var mockApp;
 
 	beforeEach(function() {
+		mockLevel={};
+		mockLevel.getNumChars=function() {
+			return 300;
+		}
+
+		mockLecture={};
+		mockLecture.getLevelByNum=function() {
+			return mockLevel;
+		}
+
+		mockLecture.getTitle=function() {
+			return "hello";
+		}
+
 		mockApp = {};
 		mockApp.getTargetPrefix = function() {
 			return "http://www.ktouch.org/";
@@ -21,6 +35,10 @@ describe("LevelStatement", function() {
 
 		mockApp.getCompletionChars = function() {
 			return 300;
+		}
+
+		mockApp.getLectureByUrl = function() {
+			return mockLecture;
 		}
 
 		mockKTouchUser = {};
@@ -139,6 +157,10 @@ describe("LevelStatement", function() {
 
 		mockStats.getChars = function() {
 			return 100;
+		}
+
+		mockStats.getDurationTime = function() {
+			return 10;
 		}
 
 		var levelStatement = new LevelStatement(mockStats, mockKTouchUser);

@@ -10,5 +10,11 @@
       <Line>Another line of text that will appaer in KTouch</Line>
       <Line>One last line that will appear in KTouch</Line>
     </Level>
+    <Level>
+      <LevelComment>A comment for the other level</LevelComment>
+      <NewCharacters>The new characters of the level</NewCharacters>
+      <Line>This is a line in the other level</Line>
+      <Line>and this is another line in the other level</Line>
+    </Level>
   </Levels>
 </KtouchLecture>

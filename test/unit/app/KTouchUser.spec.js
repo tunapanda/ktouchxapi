@@ -46,6 +46,9 @@ describe("KTouchUser", function() {
 		mockApp.getCompletionChars = function() {
 			return 300;
 		}
+		mockApp.getLectureByUrl = function() {
+			return null;
+		}
 
 		var statsFile = new KTouchStatsFile(__dirname + "/../res/statistics.xml");
 		var kTouchUser = new KTouchUser("alice", statsFile, mockApp);

@@ -41,4 +41,16 @@ FileUtil.existsSync = function(fileName) {
 	return true;
 }
 
+/**
+ * Get basename, i.e. the part after the last slash, for a path.
+ * @method getBasename
+ * @static
+ */
+FileUtil.getBaseName = function(path) {
+	if (path.lastIndexOf("/") >= 0)
+		path = path.substr(path.lastIndexOf("/") + 1);
+
+	return path;
+}
+
 module.exports = FileUtil;

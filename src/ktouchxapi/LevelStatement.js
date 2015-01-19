@@ -23,13 +23,7 @@ LevelStatement.prototype.getXApiStatement = function() {
 	if (!this.kTouchUser)
 		throw new Error("no user!");
 
-	var verbId;
-
-	if (this.isComplete())
-		verbId = "http://adlnet.gov/expapi/verbs/completed"
-
-	else
-		verbId = "http://adlnet.gov/expapi/verbs/attempted"
+	var verbId = "http://adlnet.gov/expapi/verbs/" + this.getCompletionState();
 
 	var statement = {
 		timestamp: this.levelStats.getTimestamp(),
@@ -40,7 +34,10 @@ LevelStatement.prototype.getXApiStatement = function() {
 			id: verbId
 		},
 		target: {
-			id: this.getTargetUrl()
+			id: this.getTargetUrl(),
+			definition: {
+				name: this.getTargetName()
+			}
 		},
 		result: {
 			completion: this.isComplete(),
@@ -55,6 +52,20 @@ LevelStatement.prototype.getXApiStatement = function() {
 		statement.actor.name = this.kTouchUser.getFullName();
 
 	return statement;
+}
+
+/**
+ * Get target name.
+ * @method getTargetName
+ */
+LevelStatement.prototype.getTargetName = function() {
+	var targetUrl = this.levelStats.getLecture().getUrl();
+	var lecture = this.kTouchUser.getApp().getLectureByUrl(targetUrl);
+
+	if (lecture)
+		return lecture.getTitle();
+
+	return null;
 }
 
 /**
@@ -110,17 +121,43 @@ LevelStatement.prototype.getCorrectPercentage = function() {
 }
 
 /**
+ * Returns:
+ * - "completed" if the lecture file can be found, and the level is completed.
+ * - "attempted" if the lecture file can be found, but the level is not completed.
+ * - "experienced" if the lecture file cannot be found.
+ */
+LevelStatement.prototype.getCompletionState = function() {
+	var targetUrl = this.levelStats.getLecture().getUrl();
+	var lecture, level;
+
+	lecture = this.kTouchUser.getApp().getLectureByUrl(targetUrl);
+	if (!lecture)
+		return "experienced";
+
+	level = lecture.getLevelByNum(this.levelStats.getNumber())
+	if (!level)
+		return "experienced";
+
+	if (this.levelStats.getChars() < level.getNumChars())
+		return "attempted";
+
+	if (this.getCorrectPercentage() < this.kTouchUser.getApp().getCompletionPercentage())
+		return "attempted";
+
+	return "completed";
+}
+
+/**
  * Is this complete?
  * @method isComplete
  */
 LevelStatement.prototype.isComplete = function() {
-	if (this.getCorrectPercentage() < this.kTouchUser.getApp().getCompletionPercentage())
-		return false;
+	var state = this.getCompletionState();
 
-	if (this.levelStats.getChars() < this.kTouchUser.getApp().getCompletionChars())
-		return false;
+	if (state == "completed")
+		return true;
 
-	return true;
+	return false;
 }
 
 /**

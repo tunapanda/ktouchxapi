@@ -4,6 +4,24 @@ var FileUtil = require("../../../src/utils/FileUtil");
 var fs = require("fs");
 
 describe("KTouchStats", function() {
+	var mockTinCan;
+
+	beforeEach(function() {
+		mockTinCan = {};
+
+		mockTinCan.getStatements = function(p) {
+			p.callback(null, {
+				statements: []
+			});
+		};
+
+		mockTinCan.sendStatement = function(statement, cb) {
+			cb([{
+				err: null
+			}]);
+		};
+	});
+
 	it("can generate a csv file", function(done) {
 		if (FileUtil.existsSync(__dirname + "/out.csv"))
 			fs.unlinkSync(__dirname + "/out.csv");
@@ -81,19 +99,6 @@ describe("KTouchStats", function() {
 	});
 
 	it("can use a filter function", function(done) {
-		var mockTinCan = {};
-		mockTinCan.getStatements = function(p) {
-			p.callback(null, {
-				statements: []
-			});
-		};
-
-		mockTinCan.sendStatement = function(statement, cb) {
-			cb([{
-				err: null
-			}]);
-		};
-
 		spyOn(mockTinCan, "getStatements").and.callThrough();
 		spyOn(mockTinCan, "sendStatement").and.callThrough();
 
@@ -124,22 +129,67 @@ describe("KTouchStats", function() {
 		);
 	});
 
-	/*it("can get a lecture name by url, if the file exists in the exact location", function() {
+	it("can get a lecture name by url, if the file exists in the exact location", function() {
 		var exactFileUrl = "file://" + __dirname + "/../res/testlecture.xml";
 
 		var ktouchstats = new KTouchStats();
 		var lecture = ktouchstats.getLectureByUrl(exactFileUrl);
 
-		expect(lecture.getName()).toBe("The title of the lecture");
-	});*/
+		expect(lecture.getTitle()).toBe("The title of the lecture");
+	});
 
-	/*it("can get a lecture name by url, by using a search path and just the file name from the url", function() {
+	it("can get a lecture name by url, by using a search path and just the file name from the url", function() {
 		var fileUrl = "file:///originally/somewhere/else/testlecture.xml";
 
 		var ktouchstats = new KTouchStats();
 		ktouchstats.setLecturePath(__dirname + "/../res/")
 		var lecture = ktouchstats.getLectureByUrl(fileUrl);
 
-		expect(lecture.getName()).toBe("The title of the lecture");
-	});*/
+		expect(lecture.getTitle()).toBe("The title of the lecture");
+	});
+
+	it("works on a real world case", function(done) {
+		spyOn(mockTinCan, "getStatements").and.callThrough();
+		spyOn(mockTinCan, "sendStatement").and.callThrough();
+
+		var ktouchstats = new KTouchStats();
+		ktouchstats.setBaseHomeDir(__dirname + "/testdata");
+		ktouchstats.setLecturePath(__dirname + "/testdata");
+		ktouchstats.setStatisticsFileName("statistics.xml");
+		ktouchstats.setTinCan(mockTinCan);
+
+		ktouchstats.run().then(
+			function() {
+				//console.log("done with this, calls=" + mockTinCan.getStatements.calls.count());
+
+				var experienced = 0;
+				var attempted = 0;
+				var completed = 0;
+
+				for (var i = 0; i < mockTinCan.sendStatement.calls.count(); i++)  {
+					var verb = mockTinCan.sendStatement.calls.argsFor(i)[0].verb.id;
+
+					if (verb.indexOf("experienced") >= 0)
+						experienced++;
+
+					if (verb.indexOf("attempted") >= 0)
+						attempted++;
+
+					if (verb.indexOf("completed") >= 0)
+						completed++;
+				}
+
+				expect(experienced + attempted + completed).toBe(i);
+				expect(completed).toBe(3);
+				expect(attempted).toBe(10);
+				expect(experienced).toBe(13);
+
+
+				done();
+			},
+			function(e) {
+				console.log("failed: " + e);
+			}
+		);
+	});
 });

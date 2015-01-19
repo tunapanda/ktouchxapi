@@ -7,6 +7,8 @@ var KTouchUser = require("./KTouchUser");
 var TinCan = require("tincanjs");
 var fs = require("fs");
 var Passwd = require("../utils/Passwd");
+var url = require("url");
+var KTouchLecture = require("../ktouchstats/KTouchLecture");
 
 /**
  * Gather statistics for KTouch.
@@ -29,23 +31,16 @@ function KTouchStats() {
 	this.passwd = null;
 	this.filterFunctions = [];
 	this.completionPercentage = 98;
-	this.completionChars = 300;
+	this.lecturesByUrl = {};
+	this.lecturePath = null;
 }
 
 /**
- * Get completion chars.
- * @method getCompletionChars
+ * Set lecture path.
+ * @method setLecturePath
  */
-KTouchStats.prototype.getCompletionChars = function() {
-	return this.completionChars;
-}
-
-/**
- * Set completion chars.
- * @method setCompletionChars
- */
-KTouchStats.prototype.setCompletionChars = function(value) {
-	this.completionChars = value;
+KTouchStats.prototype.setLecturePath = function(path) {
+	this.lecturePath = path;
 }
 
 /**
@@ -337,13 +332,44 @@ KTouchStats.prototype.findKTouchUsers = function() {
 	this.kTouchUsers = [];
 	for (i = 0; i < allUserNames.length; i++) {
 		userName = allUserNames[i];
-		var userStatisticsFileName = this.baseHomeDir + "/" + userName + "/" + this.statisticsFileName;
+		var userHomeDir = this.baseHomeDir + "/" + userName;
+		if (fs.statSync(userHomeDir).isDirectory()) {
+			var userStatisticsFileName = userHomeDir + "/" + this.statisticsFileName;
 
-		if (FileUtil.existsSync(userStatisticsFileName)) {
-			kTouchUser = new KTouchUser(userName, new KTouchStatsFile(userStatisticsFileName), this);
-			this.kTouchUsers.push(kTouchUser);
+			if (FileUtil.existsSync(userStatisticsFileName)) {
+				kTouchUser = new KTouchUser(userName, new KTouchStatsFile(userStatisticsFileName), this);
+				this.kTouchUsers.push(kTouchUser);
+			}
 		}
 	}
+}
+
+/**
+ * Get a lecture by url.
+ * Will only load the lecture once, then cache it.
+ * @method getLectureByUrl
+ */
+KTouchStats.prototype.getLectureByUrl = function(fn) {
+	var parsedUrl = url.parse(fn);
+
+	if (parsedUrl.protocol == "file:")
+		fn = parsedUrl.path;
+
+	if (this.lecturesByUrl[fn])
+		return this.lecturesByUrl[fn];
+
+	var lecture;
+
+	if (fs.existsSync(fn))
+		lecture = new KTouchLecture(fn);
+
+	else if (fs.existsSync(this.lecturePath + "/" + FileUtil.getBaseName(fn)))
+		lecture = new KTouchLecture(this.lecturePath + "/" + FileUtil.getBaseName(fn));
+
+	if (lecture)
+		this.lecturesByUrl[fn] = lecture;
+
+	return lecture;
 }
 
 module.exports = KTouchStats;

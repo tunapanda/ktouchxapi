@@ -6,7 +6,7 @@ var KTouchLevelStats=require("./KTouchLevelStats");
  * Parse a LectureStats node in a KTouch statistics.xml file.
  * @class KTouchStatsFile
  */
-function KTouchStatsLecture(node) {
+function KTouchLectureStats(node) {
 	this.node = node;
 	this.levelStats = [];
 
@@ -22,7 +22,7 @@ function KTouchStatsLecture(node) {
  * Get statistics for all levels.
  * @method getLevelStats
  */
-KTouchStatsLecture.prototype.getLevelStats=function() {
+KTouchLectureStats.prototype.getLevelStats=function() {
 	return this.levelStats;
 }
 
@@ -30,7 +30,7 @@ KTouchStatsLecture.prototype.getLevelStats=function() {
  * Get url.
  * @method getUser
  */
-KTouchStatsLecture.prototype.getUrl = function() {
+KTouchLectureStats.prototype.getUrl = function() {
 	return this.node.childNamed("URL").val;
 }
 
@@ -38,7 +38,7 @@ KTouchStatsLecture.prototype.getUrl = function() {
  * Get the highest level that the user has started.
  * @method getMaxLevelStarted
  */
-KTouchStatsLecture.prototype.getMaxLevelStarted = function() {
+KTouchLectureStats.prototype.getMaxLevelStarted = function() {
 	var allLevelStats = this.node.childNamed("AllLevelStats").childrenNamed("LevelStats");
 	var i;
 
@@ -52,4 +52,4 @@ KTouchStatsLecture.prototype.getMaxLevelStarted = function() {
 	return maxNum;
 }
 
-module.exports = KTouchStatsLecture;
+module.exports = KTouchLectureStats;

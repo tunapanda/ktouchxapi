@@ -1,6 +1,6 @@
 var xmldoc = require("xmldoc");
 var fs = require("fs");
-var KTouchStatsLecture = require("./KTouchStatsLecture");
+var KTouchLectureStats = require("./KTouchLectureStats");
 
 /**
  * Parse a KTouch statistics.xml file.
@@ -18,7 +18,7 @@ function KTouchStatsFile(url) {
 	var lectureNodes = this.doc.childNamed("KTouchStatistics").childrenNamed("LectureStats");
 
 	for (var i = 0; i < lectureNodes.length; i++) {
-		var lecture = new KTouchStatsLecture(lectureNodes[i]);
+		var lecture = new KTouchLectureStats(lectureNodes[i]);
 
 		this.lectureUrls.push(lecture.getUrl());
 		this.lectureByUrl[lecture.getUrl()] = lecture;

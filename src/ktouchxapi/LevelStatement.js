@@ -13,6 +13,7 @@ function LevelStatement(levelStats, kTouchUser) {
 
 	this.levelStats = levelStats;
 	this.kTouchUser = kTouchUser;
+	this.syncThenable = null;
 }
 
 /**
@@ -95,6 +96,9 @@ LevelStatement.prototype.getTargetUrl = function() {
  * @method sync
  */
 LevelStatement.prototype.sync = function(tinCan) {
+	if (this.syncThenable)
+		throw new Error("Sync already in progress!");
+
 	var statement = this.getXApiStatement();
 	var filterFuntions = this.kTouchUser.getApp().getFilterFunctions();
 
@@ -106,10 +110,33 @@ LevelStatement.prototype.sync = function(tinCan) {
 		}
 	}
 
-	var tinCanSync = new TinCanSync(tinCan);
-	var thenable = tinCanSync.syncStatement(statement)
+	this.syncThenable = new Thenable();
 
-	return thenable;
+	var tinCanSync = new TinCanSync(tinCan);
+	tinCanSync.syncStatement(statement).then(
+		this.ontinCanSyncComplete.bind(this),
+		this.ontinCanSyncError.bind(this)
+	);
+
+	/*	var thenable = tinCanSync.syncStatement(statement)
+
+		return thenable;*/
+
+	return this.syncThenable;
+}
+
+/**
+ * Sync complete.
+ */
+LevelStatement.prototype.ontinCanSyncComplete=function() {
+	this.syncThenable.resolve();
+}
+
+/**
+ * Sync error.
+ */
+LevelStatement.prototype.ontinCanSyncError=function(e) {
+	this.syncThenable.reject(e);
 }
 
 /**

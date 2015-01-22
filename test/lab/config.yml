@@ -6,3 +6,4 @@ xapiPassword: 77e744668e0d99ccb3c23380904d6e921c2bb139
 defaultVerbPrefix: http://tunapanda.org/
 passwd: test/unit/app/etc/passwd
 filter: nofuture
+lecturePath: test/lab/lectures

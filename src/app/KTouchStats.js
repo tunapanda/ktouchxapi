@@ -209,7 +209,7 @@ KTouchStats.prototype.run = function() {
 		this.generateCsv();
 
 	if (this.xApiEndpoint) {
-		console.log("** Using xAPI endpoint: " + this.xApiEndpoint);
+		console.log("Endpoint: " + this.xApiEndpoint);
 
 		this.tinCan = new TinCan({
 			recordStores: [{
@@ -355,19 +355,29 @@ KTouchStats.prototype.getLectureByUrl = function(fn) {
 	if (parsedUrl.protocol == "file:")
 		fn = parsedUrl.path;
 
-	if (this.lecturesByUrl[fn])
+	if (this.lecturesByUrl.hasOwnProperty(fn))
 		return this.lecturesByUrl[fn];
+
+	var useFn;
+
+	if (fs.existsSync(fn))
+		useFn = fn;
+
+	else if (fs.existsSync(this.lecturePath + "/" + FileUtil.getBaseName(fn)))
+		useFn = this.lecturePath + "/" + FileUtil.getBaseName(fn);
 
 	var lecture;
 
-	if (fs.existsSync(fn))
-		lecture = new KTouchLecture(fn);
+	if (useFn)
+		lecture = new KTouchLecture(useFn);
 
-	else if (fs.existsSync(this.lecturePath + "/" + FileUtil.getBaseName(fn)))
-		lecture = new KTouchLecture(this.lecturePath + "/" + FileUtil.getBaseName(fn));
+	this.lecturesByUrl[fn] = lecture;
 
-	if (lecture)
-		this.lecturesByUrl[fn] = lecture;
+	if (lecture) {
+		console.log("Lecture: " + FileUtil.getBaseName(fn) + ": " + useFn);
+	} else {
+		console.log("Lecture: " + FileUtil.getBaseName(fn) + ": not found.");
+	}
 
 	return lecture;
 }

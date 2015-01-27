@@ -37,7 +37,9 @@ LevelStatement.prototype.getXApiStatement = function() {
 		target: {
 			id: this.getTargetUrl(),
 			definition: {
-				name: this.getTargetName()
+				name: {
+					"en-US": this.getTargetName()
+				}
 			}
 		},
 		result: {
@@ -62,11 +64,22 @@ LevelStatement.prototype.getXApiStatement = function() {
 LevelStatement.prototype.getTargetName = function() {
 	var targetUrl = this.levelStats.getLecture().getUrl();
 	var lecture = this.kTouchUser.getApp().getLectureByUrl(targetUrl);
+	var name;
 
-	if (lecture)
-		return lecture.getTitle();
+	if (lecture) {
+		name = lecture.getTitle();
+	} else {
+		var targetUrl = this.levelStats.getLecture().getUrl();
+		var parsedUrl = url.parse(targetUrl);
+		var path = parsedUrl.path;
 
-	return null;
+		if (path.lastIndexOf("/") >= 0)
+			path = path.substr(path.lastIndexOf("/") + 1);
+
+		name = path;
+	}
+
+	return name + " - Level " + (this.levelStats.getNumber() + 1);
 }
 
 /**
@@ -123,7 +136,6 @@ LevelStatement.prototype.sync = function(tinCan) {
 	this.syncThenable = new Thenable();
 
 	this.tinCanSync = new TinCanSync(tinCan);
-
 	this.tinCanSync.syncStatement(statement).then(
 		this.onTinCanSyncComplete.bind(this),
 		this.onTinCanSyncError.bind(this)
@@ -140,12 +152,17 @@ LevelStatement.prototype.onTinCanSyncComplete = function() {
 	lecture = this.kTouchUser.getApp().getLectureByUrl(targetUrl);
 
 	var logFound;
+	var totChars = "?"
 
-	if (lecture)
+	if (lecture) {
 		logFound = "found";
+		level = lecture.getLevelByNum(this.levelStats.getNumber())
 
-	else
+		if (level)
+			totChars = level.getNumChars();
+	} else {
 		logFound = "not_found";
+	}
 
 	var logLine =
 		"Sync: " +
@@ -153,7 +170,8 @@ LevelStatement.prototype.onTinCanSyncComplete = function() {
 		this.getObjectivePath() + ": " +
 		this.getCompletionState() + " " +
 		logFound + " " +
-		"cr=" + Math.round(this.getCorrectPercentage()) + " " +
+		Math.round(this.getCorrectPercentage()) + "% " +
+		this.levelStats.getChars() + "/" + totChars + " " +
 		this.tinCanSync.getStatus();
 
 	console.log(logLine);

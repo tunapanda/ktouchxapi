@@ -74,6 +74,18 @@ LevelStatement.prototype.getTargetName = function() {
  * @method getTargetUrl
  */
 LevelStatement.prototype.getTargetUrl = function() {
+	var reportUrl =
+		this.kTouchUser.getApp().getTargetPrefix() +
+		this.getObjectivePath();
+
+	return reportUrl;
+}
+
+/**
+ * Get path for the objective.
+ * @method getObjectivePath
+ */
+LevelStatement.prototype.getObjectivePath = function() {
 	var targetUrl = this.levelStats.getLecture().getUrl();
 	var parsedUrl = url.parse(targetUrl);
 	var path = parsedUrl.path;
@@ -86,9 +98,7 @@ LevelStatement.prototype.getTargetUrl = function() {
 	if (path.substr(0, 1) == "/")
 		path = path.substr(1);
 
-	reportUrl = this.kTouchUser.getApp().getTargetPrefix() + path;
-
-	return reportUrl + "#" + this.levelStats.getNumber();
+	return path + "#" + this.levelStats.getNumber();
 }
 
 /**
@@ -112,15 +122,12 @@ LevelStatement.prototype.sync = function(tinCan) {
 
 	this.syncThenable = new Thenable();
 
-	var tinCanSync = new TinCanSync(tinCan);
-	tinCanSync.syncStatement(statement).then(
-		this.ontinCanSyncComplete.bind(this),
-		this.ontinCanSyncError.bind(this)
+	this.tinCanSync = new TinCanSync(tinCan);
+
+	this.tinCanSync.syncStatement(statement).then(
+		this.onTinCanSyncComplete.bind(this),
+		this.onTinCanSyncError.bind(this)
 	);
-
-	/*	var thenable = tinCanSync.syncStatement(statement)
-
-		return thenable;*/
 
 	return this.syncThenable;
 }
@@ -128,15 +135,39 @@ LevelStatement.prototype.sync = function(tinCan) {
 /**
  * Sync complete.
  */
-LevelStatement.prototype.ontinCanSyncComplete=function() {
+LevelStatement.prototype.onTinCanSyncComplete = function() {
+	var targetUrl = this.levelStats.getLecture().getUrl();
+	lecture = this.kTouchUser.getApp().getLectureByUrl(targetUrl);
+
+	var logFound;
+
+	if (lecture)
+		logFound = "found";
+
+	else
+		logFound = "not_found";
+
+	var logLine =
+		"Sync: " +
+		this.kTouchUser.getActorEmail() + ": " +
+		this.getObjectivePath() + ": " +
+		this.getCompletionState() + " " +
+		logFound + " " +
+		"cr=" + Math.round(this.getCorrectPercentage()) + " " +
+		this.tinCanSync.getStatus();
+
+	console.log(logLine);
 	this.syncThenable.resolve();
+	this.syncThenable = null;
 }
 
 /**
  * Sync error.
  */
-LevelStatement.prototype.ontinCanSyncError=function(e) {
+LevelStatement.prototype.onTinCanSyncError = function(e) {
+	console.log("Sync error!");
 	this.syncThenable.reject(e);
+	this.syncThenable = null;
 }
 
 /**

@@ -34,6 +34,7 @@ function usage() {
 	console.log("    --lecturePath=<path>      - Additional path where to search for lecture");
 	console.log("                                files except for the full path specified in ");
 	console.log("                                the lecture url.");
+	console.log("    --users=<user1,user2...>  - Comma separated lists of users to sync.");
 	console.log();
 
 	process.exit(1);
@@ -102,6 +103,9 @@ if (config["completionPercentage"])
 
 if (config["lecturePath"])
 	kTouchStats.setLecturePath(config["lecturePath"]);
+
+if (config["users"])
+	kTouchStats.setUserFilter(config["users"].split(","));
 
 kTouchStats.run().then(
 	function() {},

@@ -33,6 +33,16 @@ function KTouchStats() {
 	this.completionPercentage = 98;
 	this.lecturesByUrl = {};
 	this.lecturePath = null;
+	this.userFilter = [];
+}
+
+/**
+ * Sync only these users.
+ * Parameter is an array of usernames.
+ * @method setUserFilter
+ */
+KTouchStats.prototype.setUserFilter = function(userFilter) {
+	this.userFilter = userFilter;
 }
 
 /**
@@ -293,7 +303,7 @@ KTouchStats.prototype.syncNextUser = function() {
 	}
 
 	var kTouchUser = this.kTouchUsers[this.userSyncIndex];
-	console.log("Syncing: " + kTouchUser.getActorEmail());
+	console.log("Syncing user: " + kTouchUser.getActorEmail());
 
 	this.kTouchUsers[this.userSyncIndex].syncToXApi(this.tinCan).then(
 		this.onUserSyncComplete.bind(this),
@@ -332,13 +342,16 @@ KTouchStats.prototype.findKTouchUsers = function() {
 	this.kTouchUsers = [];
 	for (i = 0; i < allUserNames.length; i++) {
 		userName = allUserNames[i];
-		var userHomeDir = this.baseHomeDir + "/" + userName;
-		if (fs.statSync(userHomeDir).isDirectory()) {
-			var userStatisticsFileName = userHomeDir + "/" + this.statisticsFileName;
 
-			if (FileUtil.existsSync(userStatisticsFileName)) {
-				kTouchUser = new KTouchUser(userName, new KTouchStatsFile(userStatisticsFileName), this);
-				this.kTouchUsers.push(kTouchUser);
+		if (!this.userFilter.length || this.userFilter.indexOf(userName) >= 0) {
+			var userHomeDir = this.baseHomeDir + "/" + userName;
+			if (fs.statSync(userHomeDir).isDirectory()) {
+				var userStatisticsFileName = userHomeDir + "/" + this.statisticsFileName;
+
+				if (FileUtil.existsSync(userStatisticsFileName)) {
+					kTouchUser = new KTouchUser(userName, new KTouchStatsFile(userStatisticsFileName), this);
+					this.kTouchUsers.push(kTouchUser);
+				}
 			}
 		}
 	}

@@ -11,6 +11,7 @@ function TinCanSync(tinCan) {
 	this.tinCan = tinCan;
 	this.thenable = null;
 	this.statement = null;
+	this.status = null;
 }
 
 /**
@@ -61,6 +62,7 @@ TinCanSync.prototype.onGetStatementsResult = function(err, result) {
 
 	// Error?
 	if (err) {
+		this.status = "error";
 		this.statement = null;
 		var thenable = this.thenable;
 		this.thenable = null;
@@ -70,6 +72,7 @@ TinCanSync.prototype.onGetStatementsResult = function(err, result) {
 
 	// Something matching already exists?
 	if (result.statements && result.statements.length) {
+		this.status = "skip";
 		this.statement = null;
 		var thenable = this.thenable;
 		this.thenable = null;
@@ -87,6 +90,7 @@ TinCanSync.prototype.onGetStatementsResult = function(err, result) {
  * @private
  */
 TinCanSync.prototype.onSendStatementDone = function(res) {
+	this.status = "inserted";
 	this.statement = null;
 
 	var thenable = this.thenable;
@@ -97,6 +101,14 @@ TinCanSync.prototype.onSendStatementDone = function(res) {
 
 	else
 		thenable.resolve();
+}
+
+/**
+ * Get status.
+ * @method getStatus
+ */
+TinCanSync.prototype.getStatus = function() {
+	return this.status;
 }
 
 module.exports = TinCanSync;

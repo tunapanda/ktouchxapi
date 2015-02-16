@@ -20,10 +20,15 @@ function KTouchLecture(fn) {
 		throw new Error("This is not a lecture file: " + fn);
 
 	this.title = this.doc.childNamed("Title").val;
-
 	this.levels = [];
 
-	var levelNodes = this.doc.childNamed("Levels").childrenNamed("Level")
+	var levelNodes = [];
+
+	if (this.doc.childNamed("Levels"))
+		levelNodes = this.doc.childNamed("Levels").childrenNamed("Level")
+
+	else
+		levelNodes = this.doc.childrenNamed("Level");
 
 	for (var i = 0; i < levelNodes.length; i++)
 		this.levels.push(new KTouchLevel(levelNodes[i]));

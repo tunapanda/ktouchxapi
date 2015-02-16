@@ -87,9 +87,12 @@ LevelStatement.prototype.getTargetName = function() {
  * @method getTargetUrl
  */
 LevelStatement.prototype.getTargetUrl = function() {
-	var reportUrl =
-		this.kTouchUser.getApp().getTargetPrefix() +
-		this.getObjectivePath();
+	var prefix = this.kTouchUser.getApp().getTargetPrefix();
+
+	if (prefix.length > 0 && prefix.charAt(prefix.length-1) != "/")
+		prefix += "/";
+
+	var reportUrl = prefix + this.getObjectivePath();		
 
 	return reportUrl;
 }

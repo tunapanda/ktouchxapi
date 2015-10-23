@@ -1,16 +1,20 @@
 var TinCan = require("tincanjs");
+var aguid = require('aguid');
 
 var tincan = new TinCan({
 	recordStores: [{
-		endpoint: "http://staging.tunapanda.org/learninglocker/public/data/xAPI/",
-		username: "9088f1e9f7c149e72fc76553d5c3c12cfaa5c22c",
-		password: "74b2a7150e840ff9f2b7c4fd2617edaa1f6ab770",
+		endpoint: "http://localhost/repo/learninglocker/public/data/xAPI/",
+		username: "7b880fc1f371715ce24309b90e051fcd24d700c3",
+		password: "c089ce76ca667862e615995b909f2ddf9acc1795",
 		allowFail: false
 	}]
 });
 
+var id=aguid("hello world");
+
 tincan.sendStatement({
-	timestamp: "2014-10-28T12:34:56",
+	id: id,
+	timestamp: "2014-08-13T10:46:56.000Z",
 	actor: {
 		mbox: "mailto:li.mikael@gmail.com",
 		name: "Some Random Dude"

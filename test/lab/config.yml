@@ -1,8 +1,8 @@
 home: test/unit/app/users/
 stats: teststats.xml
-xapiEndpoint: http://staging.tunapanda.org/learninglocker/public/data/xAPI/
-xapiUser: 8ebc609b57c479d385dd95fd4b4c616c4c78070f
-xapiPassword: 77e744668e0d99ccb3c23380904d6e921c2bb139
+xapiEndpoint: http://localhost/repo/learninglocker/public/data/xAPI/
+xapiUser: 7b880fc1f371715ce24309b90e051fcd24d700c3
+xapiPassword: c089ce76ca667862e615995b909f2ddf9acc1795
 defaultVerbPrefix: http://tunapanda.org/
 passwd: test/unit/app/etc/passwd
 filter: nofuture

@@ -28,7 +28,10 @@ KTouchLevelStats.prototype.getDurationTime = function() {
  * @method getTimestamp
  */
 KTouchLevelStats.prototype.getTimestamp = function() {
-	return this.data.childNamed("Time").val;
+	var timestamp=this.data.childNamed("Time").val;
+	var date=new Date(Date.parse(timestamp));
+
+	return date.toISOString();
 }
 
 /**

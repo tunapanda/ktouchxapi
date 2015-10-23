@@ -2,6 +2,7 @@ var Thenable = require("../utils/Thenable");
 var TinCan = require("tincanjs");
 var TinCanSync = require("../utils/TinCanSync");
 var url = require("url");
+var aguid = require("aguid");
 
 /**
  * Manage a xAPI statement corresponding to a ktouch level.
@@ -26,7 +27,18 @@ LevelStatement.prototype.getXApiStatement = function() {
 
 	var verbId = "http://adlnet.gov/expapi/verbs/" + this.getCompletionState();
 
+	var idData = "ktouchxapi_" +
+		this.levelStats.getTimestamp() +
+		this.kTouchUser.getActorEmail() +
+		this.getTargetUrl() +
+		this.getTargetName() +
+		this.isComplete() +
+		this.getScore();
+
+	var id = aguid(idData);
+
 	var statement = {
+		id: id,
 		timestamp: this.levelStats.getTimestamp(),
 		actor: {
 			mbox: this.kTouchUser.getActorEmail()
@@ -89,10 +101,10 @@ LevelStatement.prototype.getTargetName = function() {
 LevelStatement.prototype.getTargetUrl = function() {
 	var prefix = this.kTouchUser.getApp().getTargetPrefix();
 
-	if (prefix.length > 0 && prefix.charAt(prefix.length-1) != "/")
+	if (prefix.length > 0 && prefix.charAt(prefix.length - 1) != "/")
 		prefix += "/";
 
-	var reportUrl = prefix + this.getObjectivePath();		
+	var reportUrl = prefix + this.getObjectivePath();
 
 	return reportUrl;
 }
@@ -139,7 +151,7 @@ LevelStatement.prototype.sync = function(tinCan) {
 	this.syncThenable = new Thenable();
 
 	this.tinCanSync = new TinCanSync(tinCan);
-	this.tinCanSync.syncStatement(statement).then(
+	this.tinCanSync.sendStatement(statement).then(
 		this.onTinCanSyncComplete.bind(this),
 		this.onTinCanSyncError.bind(this)
 	);

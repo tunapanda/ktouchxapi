@@ -15,6 +15,27 @@ function TinCanSync(tinCan) {
 }
 
 /**
+ * Send statement, bypassing cync.
+ * @method sendStatement
+ * @thenable
+ */
+TinCanSync.prototype.sendStatement = function(statement) {
+	if (this.thenable)
+		throw new Error("Operation already in progress.");
+
+	if (!statement.actor || !statement.target || !statement.timestamp)
+		throw new Error("The statement needs to have actor, target and timestamp");
+
+	this.statement = statement;
+	this.thenable = new Thenable();
+
+	this.status = "send";
+
+	this.tinCan.sendStatement(this.statement, this.onSendStatementDone.bind(this));
+	return this.thenable;
+}
+
+/**
  * Sync statement.
  * @method syncStatement
  * @thenable
@@ -90,7 +111,9 @@ TinCanSync.prototype.onGetStatementsResult = function(err, result) {
  * @private
  */
 TinCanSync.prototype.onSendStatementDone = function(res) {
-	this.status = "inserted";
+	if (!this.status)
+		this.status = "inserted";
+
 	this.statement = null;
 
 	var thenable = this.thenable;

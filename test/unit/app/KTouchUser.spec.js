@@ -11,6 +11,10 @@ describe("KTouchUser", function() {
 			});
 		};
 
+		mockTinCan.getStatement = function(id, cb) {
+			cb(null, []);
+		}
+
 		mockTinCan.sendStatement = function(statement, cb) {
 			expect(statement.actor.mbox).toBe("alice@hello.com");
 			expect(statement.actor.name).toBe("Alice User");
@@ -20,6 +24,7 @@ describe("KTouchUser", function() {
 		};
 
 		spyOn(mockTinCan, "getStatements").and.callThrough();
+		spyOn(mockTinCan, "getStatement").and.callThrough();
 		spyOn(mockTinCan, "sendStatement").and.callThrough();
 
 		var passwd = new Passwd(__dirname + "/etc/passwd");
@@ -55,7 +60,8 @@ describe("KTouchUser", function() {
 
 		kTouchUser.syncToXApi(mockTinCan).then(
 			function() {
-				expect(mockTinCan.getStatements).toHaveBeenCalled();
+				expect(mockTinCan.getStatement).toHaveBeenCalled();
+				//expect(mockTinCan.getStatements).toHaveBeenCalled();
 				expect(mockTinCan.sendStatement).toHaveBeenCalled();
 				console.log("calls: " + mockTinCan.sendStatement.calls.count());
 				done();

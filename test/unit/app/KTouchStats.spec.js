@@ -15,6 +15,10 @@ describe("KTouchStats", function() {
 			});
 		};
 
+		mockTinCan.getStatement = function(id, cb) {
+			cb(null,null);
+		};
+
 		mockTinCan.sendStatement = function(statement, cb) {
 			cb([{
 				err: null
@@ -63,6 +67,10 @@ describe("KTouchStats", function() {
 			});
 		};
 
+		mockTinCan.getStatement = function(id, cb) {
+			cb(null, null);
+		};
+
 		mockTinCan.sendStatement = function(statement, cb) {
 			expect(statement.actor.mbox).not.toBeNull();
 
@@ -75,6 +83,7 @@ describe("KTouchStats", function() {
 		};
 
 		spyOn(mockTinCan, "getStatements").and.callThrough();
+		spyOn(mockTinCan, "getStatement").and.callThrough();
 		spyOn(mockTinCan, "sendStatement").and.callThrough();
 
 		var ktouchstats = new KTouchStats();
@@ -85,7 +94,7 @@ describe("KTouchStats", function() {
 
 		ktouchstats.run().then(
 			function() {
-				expect(mockTinCan.getStatements.calls.count()).toBe(16);
+				expect(mockTinCan.getStatement.calls.count()).toBe(16);
 				expect(mockTinCan.sendStatement.calls.count()).toBe(16);
 
 				expect(seenUsers.length).toBe(2);
@@ -100,6 +109,7 @@ describe("KTouchStats", function() {
 
 	it("can use a filter function", function(done) {
 		spyOn(mockTinCan, "getStatements").and.callThrough();
+		spyOn(mockTinCan, "getStatement").and.callThrough();
 		spyOn(mockTinCan, "sendStatement").and.callThrough();
 
 		function filter(statement) {
@@ -119,7 +129,7 @@ describe("KTouchStats", function() {
 
 		ktouchstats.run().then(
 			function() {
-				expect(mockTinCan.getStatements.calls.count()).toBe(8);
+				expect(mockTinCan.getStatement.calls.count()).toBe(8);
 				expect(mockTinCan.sendStatement.calls.count()).toBe(8);
 				done();
 			},
@@ -150,6 +160,7 @@ describe("KTouchStats", function() {
 
 	it("works on a real world case", function(done) {
 		spyOn(mockTinCan, "getStatements").and.callThrough();
+		spyOn(mockTinCan, "getStatement").and.callThrough();
 		spyOn(mockTinCan, "sendStatement").and.callThrough();
 
 		var ktouchstats = new KTouchStats();
@@ -181,8 +192,8 @@ describe("KTouchStats", function() {
 
 				expect(experienced + attempted + completed).toBe(i);
 				expect(completed).toBe(3);
-				/*expect(attempted).toBe(10);
-				expect(experienced).toBe(13);*/
+				//expect(attempted).toBe(10);
+				//expect(experienced).toBe(13);
 
 				done();
 			},

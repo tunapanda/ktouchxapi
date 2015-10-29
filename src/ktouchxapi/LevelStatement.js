@@ -151,7 +151,8 @@ LevelStatement.prototype.sync = function(tinCan) {
 	this.syncThenable = new Thenable();
 
 	this.tinCanSync = new TinCanSync(tinCan);
-	this.tinCanSync.sendStatement(statement).then(
+	this.tinCanSync.setSyncMethod("id");
+	this.tinCanSync.syncStatement(statement).then(
 		this.onTinCanSyncComplete.bind(this),
 		this.onTinCanSyncError.bind(this)
 	);

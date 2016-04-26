@@ -2,6 +2,7 @@ var FileUtil = require("../utils/FileUtil");
 var KTouchStatsFile = require("../ktouchstats/KTouchStatsFile");
 var LevelStatement = require("../ktouchxapi/LevelStatement");
 var KTouchUserXApiSync = require("./KTouchUserXApiSync");
+var kTouchxapi = require("../ktouchxapi");
 
 /**
  * Process information for one ktouch user.
@@ -57,6 +58,10 @@ KTouchUser.prototype.getDefaultVerbPrefix = function() {
  * @method getActorEmail
  */
 KTouchUser.prototype.getActorEmail = function() {
+	if ((kTouchxapi.emailPairs) && (this.userName in kTouchxapi.emailPairs)) {
+		return kTouchxapi.emailPairs[this.userName];
+	}
+	else {
 	var actorDomain = this.app.getActorDomain();
 
 	if (!actorDomain)
@@ -64,7 +69,7 @@ KTouchUser.prototype.getActorEmail = function() {
 
 	return this.userName + "@" + actorDomain;
 }
-
+}
 /**
  * Sync up information to xapi repo for this user.
  * @method syncToXApi

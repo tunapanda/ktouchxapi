@@ -35,6 +35,11 @@ function usage() {
 	console.log("                                files except for the full path specified in ");
 	console.log("                                the lecture url.");
 	console.log("    --users=<user1,user2...>  - Comma separated lists of users to sync.");
+	console.log("    --emails=<filename>       - Allows csv file to customize email");
+	console.log("                                addresses for each user. Correct format for csv:");
+	console.log("                                <username>,<email address>");
+	console.log("                                <username2>,<email address2>");
+	console.log("                                etc.");
 	console.log();
 
 	process.exit(1);
@@ -52,6 +57,21 @@ if (config["config"]) {
 	var ymlConfig = yaml.safeLoad(fs.readFileSync(config["config"]));
 	for (var o in ymlConfig)
 		config[o] = ymlConfig[o];
+}
+// Converts csv with username/email pairs to javascript object
+
+ if (config["emails"]) {
+var emailList = config["emails"];
+
+var fileContents = fs.readFileSync(emailList);
+
+var lines = fileContents.toString().split('\n');
+var pairs = {};
+for (i = 0; i < lines.length; i ++) {
+  commaIndex = lines[i].indexOf(",");
+  pairs[lines[i].substring(0,commaIndex)] = lines[i].substring(commaIndex+1);
+}
+module.exports.emailPairs = pairs;
 }
 
 if (!config["csv"] && !config["xapiEndpoint"])

@@ -40,6 +40,8 @@ function usage() {
 	console.log("                                <username>,<email address>");
 	console.log("                                <username2>,<email address2>");
 	console.log("                                etc.");
+	console.log("    --activity=<activity_url> - Allows manual selection of url for activity type");
+	console.log("                                (default is http://www.tunapanda.org)");
 	console.log();
 
 	process.exit(1);
@@ -60,7 +62,7 @@ if (config["config"]) {
 }
 // Converts csv with username/email pairs to javascript object
 
- if (config["emails"]) {
+if (config["emails"]) {
 var emailList = config["emails"];
 
 var fileContents = fs.readFileSync(emailList);
@@ -72,6 +74,10 @@ for (i = 0; i < lines.length; i ++) {
   pairs[lines[i].substring(0,commaIndex)] = lines[i].substring(commaIndex+1);
 }
 module.exports.emailPairs = pairs;
+}
+
+if (config["activity"]) {
+	module.exports.activity_url = config["activity"];
 }
 
 if (!config["csv"] && !config["xapiEndpoint"])

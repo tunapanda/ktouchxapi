@@ -3,7 +3,7 @@ var TinCan = require("tincanjs");
 var TinCanSync = require("../utils/TinCanSync");
 var url = require("url");
 var aguid = require("aguid");
-
+var kTouchxapi = require("../ktouchxapi");
 /**
  * Manage a xAPI statement corresponding to a ktouch level.
  * @class LevelStatement
@@ -36,6 +36,13 @@ LevelStatement.prototype.getXApiStatement = function() {
 		this.getScore();
 
 	var id = aguid(idData);
+	if (kTouchxapi.activity_url) {
+		var activity_url = kTouchxapi.activity_url;
+	}
+	else {
+		var activity_url = "http://www.tunapanda.org"
+	}
+
 
 	var statement = {
 		id: id,
@@ -46,11 +53,21 @@ LevelStatement.prototype.getXApiStatement = function() {
 		verb: {
 			id: verbId
 		},
+		context: {
+			contextActivities: {
+				category: [
+					{
+						objectType: "Activity",
+						id: activity_url
+					}
+				]
+			}
+		},
 		target: {
 			id: this.getTargetUrl(),
 			definition: {
 				name: {
-					"en-US": this.getTargetName()
+					"en-US": this.getTargetName(),
 				}
 			}
 		},

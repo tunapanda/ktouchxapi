@@ -27,13 +27,33 @@ LevelStatement.prototype.getXApiStatement = function() {
 
 	var verbId = "http://adlnet.gov/expapi/verbs/" + this.getCompletionState();
 
+LevelStatement.prototype.completionLevel = function() {
+	if (this.isComplete()) {
+		if (parseInt(this.getScore()) > 150) {
+			var completionLevel = "Advanced";
+		}
+		else if (100 <= parseInt(this.getScore()) && parseInt(this.getScore()) < 150) {
+			var completionLevel = "Intermediate";
+		}
+		else (completionLevel = "Beginner")
+}
+	else {
+		var completionLevel = "Beginner";
+}
+
+return completionLevel
+}
+
+
+
 	var idData = "ktouchxapi_" +
 		this.levelStats.getTimestamp() +
 		this.kTouchUser.getActorEmail() +
 		this.getTargetUrl() +
 		this.getTargetName() +
 		this.isComplete() +
-		this.getScore();
+		this.getScore() +
+		this.completionLevel();
 
 	var id = aguid(idData);
 	if (kTouchxapi.activity_url) {
@@ -64,10 +84,10 @@ LevelStatement.prototype.getXApiStatement = function() {
 			}
 		},
 		target: {
-			id: this.getTargetUrl(),
+			id: this.getTargetUrl() + this.completionLevel(),
 			definition: {
 				name: {
-					"en-US": this.getTargetName(),
+					"en-US": this.getTargetName() + " - "+this.completionLevel(),
 				}
 			}
 		},
@@ -200,7 +220,8 @@ LevelStatement.prototype.onTinCanSyncComplete = function() {
 	var logLine =
 		"Sync: " +
 		this.kTouchUser.getActorEmail() + ": " +
-		this.getObjectivePath() + ": " +
+		this.getObjectivePath() + " " +
+		this.completionLevel() + ": " +
 		this.getCompletionState() + " " +
 		logFound + " " +
 		Math.round(this.getCorrectPercentage()) + "% " +
